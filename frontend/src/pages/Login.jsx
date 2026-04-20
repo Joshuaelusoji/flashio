@@ -1,0 +1,86 @@
+import { useState } from "react";
+import { loginUser } from "../services/api";
+import { useNavigate, Link } from "react-router-dom";
+
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await loginUser({ email, password });
+
+      if (response.success) {
+        const data = response.data;
+        const role = (data.user.role || "user").toLowerCase();
+
+        // Redirect based on role
+        if (role === "user") navigate("/user/orders");
+        else if (role === "vendor") navigate("/vendor/dashboard");
+        else if (role === "rider") navigate("/rider/dashboard");
+        else navigate("/");
+
+      } else {
+        alert(response.message || "Login failed. Check your Inputs.");
+      }
+
+    } catch (err) {
+      console.error("Login error:", err);
+      alert("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <form onSubmit={handleLogin}
+        className="bg-white p-10 rounded-lg h-4/6 shadow-2xl w-full max-w-sm"
+      >
+        <h1 className="text-2xl font-bold mb-6 text-center">Flashio</h1>
+
+        <div className="mt-14 mb-20">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="border p-2 mb-4 w-full rounded"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="border p-2 mb-4 w-full rounded"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-blue-600 text-white p-2 w-full rounded hover:bg-blue-700 transition"
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
+
+        <p className="text-center mt-4 text-sm">
+          Don’t have an account?{" "}
+          <Link to="/signup" className="text-blue-600 hover:underline font-medium">
+            Sign up
+          </Link>
+        </p>
+      </form>
+    </div>
+  );
+}
+
+export default Login;

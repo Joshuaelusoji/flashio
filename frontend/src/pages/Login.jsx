@@ -11,7 +11,7 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    
     try {
       const response = await loginUser({ email, password });
 
@@ -20,7 +20,7 @@ function Login() {
         const role = (data.user.role || "user").toLowerCase();
 
         // Redirect based on role
-        if (role === "user") navigate("/user/orders");
+        if (role === "user") navigate("/orders");
         else if (role === "vendor") navigate("/vendor/dashboard");
         else if (role === "rider") navigate("/rider/dashboard");
         else navigate("/");
@@ -31,7 +31,7 @@ function Login() {
 
     } catch (err) {
       console.error("Login error:", err);
-      alert("Server error. Please try again later.");
+      alert( err.message || "Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }

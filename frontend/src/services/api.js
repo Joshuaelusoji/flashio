@@ -1,21 +1,21 @@
 // src/services/api.js
 
-const BASE_API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const BASE_API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
-  /* =========================
-   REGISTER USERrhi
-   ========================= */
-   export async function registerUser(userData) {
-    try {
-       const res = await fetch(`${BASE_API_URL}/auth/register`, {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         credentials: "include",
-         body: JSON.stringify(userData),
-       });
+
+/* =========================
+   REGISTER USER
+========================= */
+export async function registerUser(userData) {
+  try {
+    const res = await fetch(`${BASE_API_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(userData),
+    });
 
     const data = await res.json();
 
@@ -106,10 +106,10 @@ export async function verifyDeliveryCode(orderId, code) {
     return { success: false, message: error.message };
   }
 }
+
 /* =========================
    PROCESS PAYMENT
 ========================= */
-
 export async function initializePayment(orderId, location) {
   try {
     const res = await fetch(`${BASE_API_URL}/payments/initialize`, {

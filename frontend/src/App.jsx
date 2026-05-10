@@ -9,6 +9,8 @@ import PaymentForm from "./pages/PaymentForm";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import VerifyEmail from "./pages/VerifyEmail";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import Menu from "./pages/Menu";
+import RestaurantsDetails from "./pages/RestaurantsDetails";
 
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmail />} />
 
         {/* Dashboard / private routes */}
-        <Route path="/user/orders" element={<UserOrders />} />
+        <Route path="/orders" element={<UserOrders />} />
         <Route path="/rider/dashboard" element={<RiderDashboard />} />
 
         {/* Checkout / Payment */}
@@ -32,10 +34,16 @@ function App() {
 
 
         {/* Order confirmation */}
+        
         <Route path="/order/confirmation/:orderId" element={<OrderConfirmation />} />
 
+        <Route path="/menu" element={<Menu />} />
+
+        <Route path="/restaurants/:slug" element={<RestaurantsDetails />} />
+
         {/* Default redirecting route */}
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Navigate to="/orders" />} />
+        <Route path="*" element={<Navigate to="/orders" />} />
       </Routes>
     </Router>
   );

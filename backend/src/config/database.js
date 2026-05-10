@@ -34,7 +34,7 @@ const sequelize = isProduction
       {
         host: process.env.DB_HOST || 'localhost',
         dialect: 'postgres',
-        logging: console.log, // verbose logging in dev
+        logging: false, // verbose logging in dev
         pool: {
           max: 10,
           min: 2,

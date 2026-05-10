@@ -54,8 +54,9 @@ router.post("/register", async (req, res) => {
       emailTokenExpiry,
     });
 
-    const verificationLink =
-      `${process.env.BACKEND_URL}/api/auth/verify-email?token=${rawToken}`;
+    const verificationLink = process.env.NODE_ENV === "production"
+      ? `${process.env.BACKEND_URL}/api/auth/verify-email?token=${rawToken}`
+      : `http://localhost:${process.env.PORT || 5000}/api/auth/verify-email?token=${rawToken}`;
 
     try {
       await sendEmail({

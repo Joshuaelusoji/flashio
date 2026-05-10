@@ -368,7 +368,12 @@ export default function Navbar() {
             </button>
           </div>
 
-          
+          <button
+            onClick={() => navigate("/login")}
+            className="bg-orange-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+            Login
+          </button>
+
           {/* Right Section */}
           <div className="navbar-right">
             <div className="search-box">

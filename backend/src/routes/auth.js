@@ -24,21 +24,22 @@ router.post("/register", async (req, res) => {
     return res.status(400).json({ message: "Password must be at least 8 characters" });
   }
 
-  const normalizedEmail = email.toLowerCase();
-
   try {
-    const existingUser = await User.findOne({ where: { email: normalizedEmail } });
+    const normalizedEmail = email.toLowerCase();
+
+    const existingUser = await User.findOne({
+      where: { email: normalizedEmail },
+    });
 
     if (existingUser) {
       if (existingUser.verified) {
         return res.status(400).json({ message: "User already exists" });
-      } else {
-        await existingUser.destroy();
       }
+
+      await existingUser.destroy();
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
+    const passwordHash = await bcrypt.hash(password, 10);
 
     const rawToken = crypto.randomBytes(32).toString("hex");
     const emailTokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000);
@@ -54,31 +55,36 @@ router.post("/register", async (req, res) => {
       emailTokenExpiry,
     });
 
-    const verificationLink = process.env.NODE_ENV === "production"
-      ? `${process.env.BACKEND_URL}/api/auth/verify-email?token=${rawToken}`
-      : `http://localhost:${process.env.PORT || 5000}/api/auth/verify-email?token=${rawToken}`;
+    /* ============================
+       🔥 FIXED VERIFICATION LINK
+    ============================ */
+    const verificationLink =
+      `${process.env.FRONTEND_URL}/verify-email?token=${rawToken}`;
 
-    try {
-      await sendEmail({
-        to: user.email,
-        subject: "Verify your Flashio account",
-        html: `<p>Verify your account: ${verificationLink}</p>`,
-      });
-    } catch (emailErr) {
-      console.error("EMAIL SEND FAILED:", emailErr);
-      return res.status(201).json({
-        message:
-          "Account created, but email failed. Please try again or contact support.",
-      });
-    }
+    await sendEmail({
+      to: user.email,
+      subject: "Verify your Flashio account",
+      html: `
+        <div style="font-family: Arial">
+          <h2>Verify your account</h2>
+          <p>Click the button below to verify your email:</p>
+          <a href="${verificationLink}"
+             style="display:inline-block;padding:10px 16px;background:#FF4500;color:#fff;text-decoration:none;border-radius:6px;">
+            Verify Email
+          </a>
+        </div>
+      `,
+    });
 
     return res.status(201).json({
-      message: "Signup successful! Please check your email to verify your account.",
+      message: "Signup successful! Check your email to verify your account.",
     });
 
   } catch (err) {
     console.error("REGISTER ERROR:", err);
-    return res.status(500).json({ message: "Something went wrong. Please try again." });
+    return res.status(500).json({
+      message: "Something went wrong. Please try again.",
+    });
   }
 });
 
@@ -93,7 +99,9 @@ router.get("/verify-email", async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ where: { emailToken: token } });
+    const user = await User.findOne({
+      where: { emailToken: token },
+    });
 
     if (!user) {
       return res.status(404).json({ message: "Invalid or used link." });
@@ -103,16 +111,19 @@ router.get("/verify-email", async (req, res) => {
       return res.status(200).json({ message: "Email already verified." });
     }
 
-    if (!user.emailTokenExpiry || new Date() > new Date(user.emailTokenExpiry)) {
-      return res.status(410).json({ message: "Link expired." });
+    if (new Date() > new Date(user.emailTokenExpiry)) {
+      return res.status(410).json({ message: "Verification link expired." });
     }
 
     user.verified = true;
     user.emailToken = null;
     user.emailTokenExpiry = null;
+
     await user.save();
 
-    return res.status(200).json({ message: "Email verified successfully" });
+    return res.status(200).json({
+      message: "Email verified successfully",
+    });
 
   } catch (err) {
     console.error("VERIFY ERROR:", err);
@@ -121,30 +132,34 @@ router.get("/verify-email", async (req, res) => {
 });
 
 /* ============================
-   LOGIN (COOKIE-BASED JWT)
+   LOGIN
 ============================ */
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password)
+  if (!email || !password) {
     return res.status(400).json({ message: "All fields are required" });
+  }
 
   try {
     const user = await User.findOne({
       where: { email: email.toLowerCase() },
-      attributes: { include: ["passwordHash"] }
+      attributes: { include: ["passwordHash"] },
     });
 
-    if (!user)
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
+    }
 
-    if (!user.verified)
+    if (!user.verified) {
       return res.status(403).json({ message: "Please verify your email first" });
+    }
 
     const isMatch = await bcrypt.compare(password, user.passwordHash);
 
-    if (!isMatch)
+    if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
+    }
 
     const token = jwt.sign(
       { id: user.id },
@@ -152,12 +167,10 @@ router.post("/login", async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    // ✅ STORE TOKEN IN HTTPONLY COOKIE
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
@@ -175,12 +188,12 @@ router.post("/login", async (req, res) => {
 
   } catch (err) {
     console.error("LOGIN ERROR:", err);
-    return res.status(500).json({ message: "Something went wrong. Please try again." });
+    return res.status(500).json({ message: "Something went wrong" });
   }
 });
 
 /* ============================
-   LOGOUT (NEW)
+   LOGOUT
 ============================ */
 router.post("/logout", (req, res) => {
   try {

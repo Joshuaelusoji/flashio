@@ -26,6 +26,13 @@ import Product from "./src/models/Product.js";
 
 dotenv.config();
 
+/* =========================
+   DEBUG ENV
+========================= */
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+console.log("BACKEND_URL:", process.env.BACKEND_URL);
+console.log("NODE_ENV:", process.env.NODE_ENV);
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 

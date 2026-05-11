@@ -34,7 +34,7 @@ const PORT = process.env.PORT || 5000;
 ========================= */
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://frontend-lv6c.onrender.com",
+  process.env.FRONTEND_URL,
 ];
 
 app.use(

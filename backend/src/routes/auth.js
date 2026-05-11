@@ -59,7 +59,7 @@ router.post("/register", async (req, res) => {
        🔥 FIXED VERIFICATION LINK
     ============================ */
     const verificationLink =
-      `${process.env.BACKEND_URL}/verify-email?token=${rawToken}`;
+      `${process.env.FRONTEND_URL}/verify-email?token=${rawToken}`;
 
     await sendEmail({
       to: user.email,

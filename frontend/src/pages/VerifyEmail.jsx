@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL || "https://flashio-backend.onrender.com/api";
+
 function VerifyEmail() {
   const [status, setStatus] = useState("loading");
   const [message, setMessage] = useState("");
@@ -20,7 +22,7 @@ function VerifyEmail() {
     const verify = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/auth/verify-email?token=${encodeURIComponent(token)}`
+          `${API_URL}/auth/verify-email?token=${encodeURIComponent(token)}`
         );
         const data = await res.json();
 

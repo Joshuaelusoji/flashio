@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const API_URL ="https://flashio-backend.onrender.com/api";
+const API_URL =process.env.VITE_API_URL || "http://localhost:5000/api";
 
 function VerifyEmail() {
   const [status, setStatus] = useState("loading");

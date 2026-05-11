@@ -332,24 +332,24 @@ function Menu() {
 
       {/* Section 2: Explore Restaurants */}
       <section className="mb-4">
-        <h2 className="text-lg font-semibold mb-3">
+        <h2 className="text-lg font-semibold mb-4">
           Explore Restaurants
         </h2>
-        <div className="flex md:grid gap-2 md:grid-cols-4 overflow-x-auto scrollbar-hide pb-2">
+        <div className="flex md:grid gap-2 md:grid-cols-4 overflow-x-auto scrollbar-hide pb-4">
           {restaurants.map((res) => (
             <div
               key={res.id}
               onClick={() => navigate(res.path)}
-              className="bg-white p-2 rounded-lg justify-around shadow flex flex-col items-center cursor-pointer hover:shadow-md transition flex-shrink-0 w-36 h-36 md:w-auto"
+              className="rounded-lg justify-evenly flex flex-col items-center cursor-pointer transition flex-shrink-0 w-24 h-24 md:w-auto"
             >
               <img
                 src={res.image}
                 alt={res.name}
-                className="w-10 h-10 rounded-full object-cover block flex-shrink-0"
+                className="w-12 h-12 rounded-full object-cover block flex-shrink-0"
               />
 
               <div className="text-center min-w-0">
-                <h3 className="font-semibold text-xs mb-0 break-words">{res.name}</h3>
+                <h3 className="font-semibold text-xs break-words">{res.name}</h3>
                 <p className="text-xs text-gray-500">📍 {res.location}</p>
               </div>
             </div>
@@ -358,8 +358,8 @@ function Menu() {
       </section>
 
       {/* Section 3: Featured Food */}
-      <section>
-        <h2 className="text-lg font-semibold mb-1">
+      <section className="mb-4">
+        <h2 className="text-lg font-semibold mb-2">
           Featured Meals
         </h2>
 
@@ -367,7 +367,7 @@ function Menu() {
           {featured.map((item) => (
             <div
               key={item.id}
-              className={`bg-black rounded-lg flex flex-col justify-evenly items-center shadow cursor-pointer hover:shadow-md transition flex-shrink-0 w-36 h-36 md:w-auto
+              className={`bg-black rounded-lg flex flex-col justify-evenly items-center shadow cursor-pointer hover:shadow-md transition flex-shrink-0 w-32 h-32 md:w-auto
                 ${item.stock === 0 ? "opacity-60 cursor-not-allowed" : ""}
               `}
             >
@@ -387,7 +387,7 @@ function Menu() {
               )}
 
               <div className="">
-                <h3 className="font-semibold text-xs text-white/80 w-30">{item.name}</h3>
+                <h3 className="font-light text-xs text-white/80 w-30 tracking-tighter">{item.name}</h3>
             
                 <p className="text-xs text-white/80">
                  {item.location}
@@ -402,26 +402,26 @@ function Menu() {
         </div>
       </section>
       <section>
-        <h2 className="text-lg font-semibold mb-4">
+        <h2 className="text-lg font-semibold mb-2">
           Drinks
         </h2>
-        <div className="flex md:grid md:grid-cols-4 gap-2">
+        <div className="flex md:grid gap-2 md:grid-cols-4 overflow-x-auto scrollbar-hide pb-2">
           {drinks.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-lg shadow overflow-hidden"
+              className="bg-white/0 rounded-lg flex flex-col justify-evenly items-center cursor-pointer transition flex-shrink-0 w-36 h-36 md:w-auto"
             >
               <img
                 src={item.image}
                 alt={item.name}
-                className="h-40 w-full object-cover"
+                className="h-16 w-16 block object-cover rounded-full"
               />
-              <div className="p-4">
+              <div className="">
                 <h3 className="font-semibold">{item.name}</h3>
                 <p className="text-sm text-gray-500">
                   📍 {item.location}
                 </p>
-                <p className="text-orange-600 font-bold mt-2">
+                <p className="text-orange-600 font-bold">
                   ₦{item.price}
                 </p>
               </div>

@@ -232,7 +232,8 @@ export default function Navbar() {
         }
 
         .mobile-menu {
-          display: block;
+          display: flex;
+          flex-direction: column;
           position: fixed;
           top: 0;
           right: 0;
@@ -368,11 +369,7 @@ export default function Navbar() {
             </button>
           </div>
 
-          <button
-            onClick={() => navigate("/login")}
-            className="bg-orange-500 text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition">
-            Login
-          </button>
+          
 
           {/* Right Section */}
           <div className="navbar-right">
@@ -398,20 +395,37 @@ export default function Navbar() {
           <span style={{ fontSize: "16px", fontWeight: "700" }}>Menu</span>
           <button className="mobile-menu-close" onClick={() => setIsOpen(false)}>✕</button>
         </div>
-        <div className="mobile-menu-items">
-          {menuItems.map((item) => (
+        <div className="mobile-menu-items flex flex-col justify-between flex-1">
+          <div className="flex flex-col">
+            {menuItems.map((item) => (
+              <button
+                key={item.path}
+                className="mobile-menu-item"
+                onClick={() => {
+                  navigate(item.path);
+                  setIsOpen(false);
+                }}
+              >
+                <span className="mobile-menu-icon">{item.icon}</span>
+                {item.label}
+              </button>
+
+            ))};
+          </div>
+          <div className="grid grid-cols-2 gap-2 p-4">
             <button
-              key={item.path}
-              className="mobile-menu-item"
-              onClick={() => {
-                navigate(item.path);
-                setIsOpen(false);
-              }}
-            >
-              <span className="mobile-menu-icon">{item.icon}</span>
-              {item.label}
+              onClick={() => navigate("/login")}
+              className="bg-orange-500 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+              Login
             </button>
-          ))}
+            <button
+              onClick={() => navigate("/signup")}
+              className="bg-orange-500 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+              Signup
+            </button>
+          </div>
+          
+          
         </div>
       </div>
     </>

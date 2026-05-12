@@ -498,7 +498,7 @@ export default function Navbar() {
           {/* Show user name at top of mobile menu when logged in */}
           {user && (
             <div className="mobile-user-info">
-              👋 Hi, <span>{user.firstName} {user.lastName}</span>
+              👋 Hi, <span>{user.firstName}</span>
             </div>
           )}
 

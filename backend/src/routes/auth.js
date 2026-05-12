@@ -55,9 +55,6 @@ router.post("/register", async (req, res) => {
       emailTokenExpiry,
     });
 
-    /* ============================
-       🔥 FIXED VERIFICATION LINK
-    ============================ */
     const verificationLink =
       `${process.env.FRONTEND_URL}/verify-email?token=${rawToken}`;
 
@@ -189,6 +186,38 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     console.error("LOGIN ERROR:", err);
     return res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+/* ============================
+   ME
+   Reads the httpOnly cookie,
+   verifies the JWT, and returns
+   the current user from the DB.
+============================ */
+router.get("/me", async (req, res) => {
+  const token = req.cookies?.token;
+
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const user = await User.findByPk(decoded.id, {
+      attributes: ["id", "firstName", "lastName", "email", "phone", "role"],
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.json({ user });
+
+  } catch (err) {
+    console.error("ME ERROR:", err);
+    return res.status(401).json({ message: "Invalid or expired session" });
   }
 });
 

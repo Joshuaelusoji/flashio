@@ -389,7 +389,7 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`menu-overlay ${isOpen ? "active" : ""}`} onClick={() => setIsOpen(false)} />
+      <div className={`bg-red-400 menu-overlay ${isOpen ? "active" : ""}`} onClick={() => setIsOpen(false)} />
       <div className={`mobile-menu ${isOpen ? "active" : ""}`}>
         <div className="mobile-menu-header">
           <span style={{ fontSize: "16px", fontWeight: "700" }}>Menu</span>

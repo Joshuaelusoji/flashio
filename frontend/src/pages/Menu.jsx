@@ -5,7 +5,7 @@ function Menu() {
 
   // Section 1: Categories
   const categories = [
-    { name: "Restaurants", icon: "🍽️", path: "/restaurants", color: "bg-orange-100", text: "text-orange-600" },
+    { name: "Restaurants", icon: "🍽️", path: "/restaurants", color: "bg-orange-700", text: "text-orange-600" },
     { name: "Shops", icon: "🛍️", path: "/shops", color: "bg-red-100", text: "text-blue-600" },
     { name: "Mall", icon: "🛒", path: "/mall", color: "bg-purple-100", text: "text-purple-600" },
     { name: "Local Market", icon: "🥬", path: "/market", color: "bg-green-100", text: "text-yellow-600" },

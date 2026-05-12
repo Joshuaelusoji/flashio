@@ -390,12 +390,12 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div className={`menu-overlay ${isOpen ? "active" : ""}`} onClick={() => setIsOpen(false)} />
-      <div className={`bg-red-400 mobile-menu ${isOpen ? "active" : ""}`}>
+      <div className={`mobile-menu ${isOpen ? "active" : ""}`}>
         <div className="mobile-menu-header">
           <span style={{ fontSize: "16px", fontWeight: "700" }}>Menu</span>
           <button className="mobile-menu-close" onClick={() => setIsOpen(false)}>✕</button>
         </div>
-        <div className="mobile-menu-items flex flex-col justify-between flex-1">
+        <div className="bg-red -400 mobile-menu-items flex flex-col justify-between flex-1">
           <div className="flex flex-col">
             {menuItems.map((item) => (
               <button

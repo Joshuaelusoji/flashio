@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Menu from "../pages/Menu";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleResize = () => {
@@ -13,6 +14,12 @@ export default function Navbar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleLogout = async () => {
+    await logout();
+    setIsOpen(false);
+    navigate("/home");
+  };
 
   const menuItems = [
     { label: "🏠 Home", path: "/home" },
@@ -209,6 +216,74 @@ export default function Navbar() {
           border: 2px solid #fff;
         }
 
+        /* Desktop auth buttons */
+        .desktop-auth-btns {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .user-greeting {
+          font-size: 13px;
+          font-weight: 600;
+          color: #1a1a1a;
+        }
+
+        .user-greeting span {
+          color: #f59e0b;
+        }
+
+        .btn-login {
+          background: none;
+          border: 2px solid #f59e0b;
+          color: #f59e0b;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 7px 16px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-login:hover {
+          background: #f59e0b;
+          color: #fff;
+        }
+
+        .btn-signup {
+          background: #f59e0b;
+          border: 2px solid #f59e0b;
+          color: #fff;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 7px 16px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-signup:hover {
+          background: #ea580c;
+          border-color: #ea580c;
+        }
+
+        .btn-logout {
+          background: none;
+          border: 2px solid #e0e0e0;
+          color: #666;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 7px 16px;
+          border-radius: 10px;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+          border-color: #dc2626;
+          color: #dc2626;
+        }
+
         .menu-btn {
           background: none;
           border: none;
@@ -297,14 +372,27 @@ export default function Navbar() {
           min-width: 24px;
         }
 
+        .mobile-user-info {
+          padding: 12px 20px;
+          font-size: 13px;
+          font-weight: 600;
+          color: #1a1a1a;
+          border-bottom: 1px solid #f0f0f0;
+          margin-bottom: 4px;
+        }
+
+        .mobile-user-info span {
+          color: #f59e0b;
+        }
+
         @media (min-width: 961px) {
-            .mobile-menu {
-              display: none !important;
-            }
-            .menu-overlay {
-              display: none !important;
-            }
+          .mobile-menu {
+            display: none !important;
           }
+          .menu-overlay {
+            display: none !important;
+          }
+        }
 
         @media (max-width: 960px) {
           .navbar-center {
@@ -312,6 +400,10 @@ export default function Navbar() {
           }
 
           .search-box {
+            display: none;
+          }
+
+          .desktop-auth-btns {
             display: none;
           }
 
@@ -343,6 +435,7 @@ export default function Navbar() {
 
       <nav className="navbar">
         <div className="navbar-container">
+
           {/* Logo */}
           <div className="navbar-brand" onClick={() => navigate("/home")}>
             <div className="brand-icon">F</div>
@@ -354,22 +447,11 @@ export default function Navbar() {
 
           {/* Center Menu */}
           <div className="navbar-center">
-            <button className="nav-link" onClick={() => navigate("/home")}>
-              🏠 Home
-            </button>
-            <button className="nav-link" onClick={() => navigate("/browse")}>
-              🍽️ Browse
-            </button>
-            <button className="nav-link" onClick={() => navigate("/popular")}>
-              🥤 Popular
-            </button>
-            
-            <button className="nav-link" onClick={() => navigate("/offers")}>
-            🔥 Offers
-            </button>
+            <button className="nav-link" onClick={() => navigate("/home")}>🏠 Home</button>
+            <button className="nav-link" onClick={() => navigate("/browse")}>🍽️ Browse</button>
+            <button className="nav-link" onClick={() => navigate("/popular")}>🥤 Popular</button>
+            <button className="nav-link" onClick={() => navigate("/offers")}>🔥 Offers</button>
           </div>
-
-          
 
           {/* Right Section */}
           <div className="navbar-right">
@@ -377,13 +459,28 @@ export default function Navbar() {
               <span className="search-icon">🔍</span>
               <input placeholder="Search restaurants or food..." />
             </div>
+
             <button className="cart-btn" onClick={() => navigate("/cart")}>
               🛒
               <span className="cart-badge">3</span>
             </button>
-            <button className="menu-btn" onClick={() => setIsOpen(true)}>
-              ☰
-            </button>
+
+            {/* Desktop auth — hidden on mobile via CSS */}
+            <div className="desktop-auth-btns">
+              {user ? (
+                <>
+                  <span className="user-greeting">Hi, <span>{user.firstName}</span></span>
+                  <button className="btn-logout" onClick={handleLogout}>Logout</button>
+                </>
+              ) : (
+                <>
+                  <button className="btn-login" onClick={() => navigate("/login")}>Login</button>
+                  <button className="btn-signup" onClick={() => navigate("/signup")}>Sign Up</button>
+                </>
+              )}
+            </div>
+
+            <button className="menu-btn" onClick={() => setIsOpen(true)}>☰</button>
           </div>
         </div>
       </nav>
@@ -395,7 +492,16 @@ export default function Navbar() {
           <span style={{ fontSize: "16px", fontWeight: "700" }}>Menu</span>
           <button className="mobile-menu-close" onClick={() => setIsOpen(false)}>✕</button>
         </div>
+
         <div className="mobile-menu-items flex flex-col justify-between flex-1">
+
+          {/* Show user name at top of mobile menu when logged in */}
+          {user && (
+            <div className="mobile-user-info">
+              👋 Hi, <span>{user.firstName} {user.lastName}</span>
+            </div>
+          )}
+
           <div className="flex flex-col">
             {menuItems.map((item) => (
               <button
@@ -409,23 +515,35 @@ export default function Navbar() {
                 <span className="mobile-menu-icon">{item.icon}</span>
                 {item.label}
               </button>
+            ))}
+          </div>
 
-            ))};
-          </div>
+          {/* Mobile auth buttons */}
           <div className="grid grid-cols-2 gap-2 p-4">
-            <button
-              onClick={() => navigate("/login")}
-              className="bg-orange-500 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition">
-              Login
-            </button>
-            <button
-              onClick={() => navigate("/signup")}
-              className="bg-orange-500 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition">
-              Signup
-            </button>
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="col-span-2 bg-red-100 text-red-600 text-xs font-semibold px-4 py-2 rounded-lg hover:bg-red-200 transition"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => { navigate("/login"); setIsOpen(false); }}
+                  className="bg-orange-500 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => { navigate("/signup"); setIsOpen(false); }}
+                  className="bg-orange-500 text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-orange-600 transition"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
-          
-          
         </div>
       </div>
     </>

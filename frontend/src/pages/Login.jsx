@@ -1,23 +1,23 @@
 import { useState } from "react";
-import { loginUser } from "../services/api";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     try {
-      const response = await loginUser({ email, password });
+      const response = await login({ email, password });
 
       if (response.success) {
-        const data = response.data;
-        const role = (data.user.role || "user").toLowerCase();
+        const role = (response.data.user.role || "user").toLowerCase();
 
         // Redirect based on role
         if (role === "user") navigate("/orders");
@@ -26,12 +26,12 @@ function Login() {
         else navigate("/");
 
       } else {
-        alert(response.message || "Login failed. Check your Inputs.");
+        alert(response.message || "Login failed. Check your inputs.");
       }
 
     } catch (err) {
       console.error("Login error:", err);
-      alert( err.message || "Something went wrong. Please try again later.");
+      alert(err.message || "Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -39,7 +39,8 @@ function Login() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-      <form onSubmit={handleLogin}
+      <form
+        onSubmit={handleLogin}
         className="bg-white p-10 rounded-lg h-4/6 shadow-2xl w-full max-w-sm"
       >
         <h1 className="text-2xl font-bold mb-6 text-center">Flashio</h1>
@@ -73,7 +74,7 @@ function Login() {
         </button>
 
         <p className="text-center mt-4 text-sm">
-          Don’t have an account?{" "}
+          Don't have an account?{" "}
           <Link to="/signup" className="text-blue-600 hover:underline font-medium">
             Sign up
           </Link>

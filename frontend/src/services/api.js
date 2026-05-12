@@ -58,6 +58,57 @@ export async function loginUser(credentials) {
 }
 
 /* =========================
+   GET CURRENT USER (ME)
+   Called on app load to
+   rehydrate session from
+   the httpOnly cookie.
+========================= */
+export async function getMe() {
+  try {
+    const res = await fetch(`${BASE_API_URL}/auth/me`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Not authenticated");
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    console.error("GET ME ERROR:", error);
+    return { success: false, message: error.message };
+  }
+}
+
+/* =========================
+   LOGOUT USER
+   Clears the httpOnly cookie
+   on the server.
+========================= */
+export async function logoutUser() {
+  try {
+    const res = await fetch(`${BASE_API_URL}/auth/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Logout failed");
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    console.error("LOGOUT ERROR:", error);
+    return { success: false, message: error.message };
+  }
+}
+
+/* =========================
    GET RIDER ORDERS
 ========================= */
 export async function getRiderOrders() {

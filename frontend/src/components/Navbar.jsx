@@ -395,7 +395,7 @@ export default function Navbar() {
           <span style={{ fontSize: "16px", fontWeight: "700" }}>Menu</span>
           <button className="mobile-menu-close" onClick={() => setIsOpen(false)}>✕</button>
         </div>
-        <div className="bg-red-400 mobile-menu-items flex flex-col justify-between flex-1">
+        <div className="bg-lime-800 mobile-menu-items flex flex-col justify-between flex-1">
           <div className="flex flex-col">
             {menuItems.map((item) => (
               <button

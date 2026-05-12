@@ -302,14 +302,7 @@ function Menu() {
   return (
     
     <div className="p-6 bg-gray-100 min-h-screen">
-        <div className="flex items-center gap-4 mb-6">
-            <button
-            onClick={() => navigate(-1)}
-            className="bg-white px-3 py-2 rounded shadow hover:bg-gray-200 transition"
-            >
-            ←
-            </button>
-        </div>
+        
       <h1 className="text-2xl font-bold mb-6">Menu</h1>
 
       {/* Section 1: Categories */}

@@ -460,11 +460,6 @@ export default function Navbar() {
               <input placeholder="Search restaurants or food..." />
             </div>
 
-            <button className="cart-btn" onClick={() => navigate("/cart")}>
-              🛒
-              <span className="cart-badge">3</span>
-            </button>
-
             {/* Desktop auth — hidden on mobile via CSS */}
             <div className="desktop-auth-btns">
               {user ? (

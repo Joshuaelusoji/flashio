@@ -63,7 +63,7 @@ export async function loginUser(credentials) {
    rehydrate session from
    the httpOnly cookie.
 ========================= */
-export async function getUser() {
+export async function getMe() {
   try {
     const res = await fetch(`${BASE_API_URL}/auth/me`, {
       method: "GET",

@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
 
   // On app load, ask the server if there's a valid session cookie
   useEffect(() => {
-    getUser()
+    getMe()
       .then((res) => {
         if (res.success) setUser(res.data.user);
         else setUser(null);

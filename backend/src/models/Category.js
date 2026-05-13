@@ -13,7 +13,7 @@ const Category = sequelize.define(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true, // Prevent duplicate category names
+      unique: true,
     },
 
     icon: {
@@ -26,12 +26,7 @@ const Category = sequelize.define(
       allowNull: false,
     },
 
-    color: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    text: {
+    theme: {
       type: DataTypes.STRING,
       allowNull: false,
     },

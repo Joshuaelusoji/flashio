@@ -8,25 +8,21 @@ function Menu() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
+    fetch(`${import.meta.env.VITE_API_URL}/categories`)
       .then(res => res.json())
       .then(setCategories)
       .catch(console.error);
   }, []);
 
   // Section 2: Restaurants
-  const restaurants = [
-    { id: 1, name: "Indeego Restaurants", path: "/restaurants/Indeego-Restaurants", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Falaju" },
-    { id: 2, name: "Ongbona", path: "/restaurants/Ongbona", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Energy" },
-    { id: 3, name: "Iya Ruka", path: "/restaurants/Iya-Ruka", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Mayfair" },
-    { id: 4, name: "Oni Tower", path: "/restaurants/Oni-Tower", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Mayfair" },
-    { id: 5, name: "Iya Maryam", path: "/restaurants/Iya-Maryam", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "OAU Campus" },
-    { id: 6, name: "Captain Cook", path: "/restaurants/Captain-Cook", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Surulere" },
-    { id: 7, name: "IvoryBites Restaurant and Bakery", path: "/restaurants/IvoryBites-Restaurant-and-Bakery", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Ajebandele" },
-    { id: 8, name: "Yakoyo Afrikana", path: "/restaurants/Yakoyo-Afrikana", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Ojaja Moore" },
-    { id: 9, name: "Daily Menu", path: "/restaurants/Daily-Menu", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Lagere" },
-    { id: 10, name: "Country Kitchen", path: "/restaurants/Country-Kitchen", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", location: "Mayfair" },
-  ];
+  const [restaurants, setRestaurants] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/restaurants`)
+      .then(res => res.json())
+      .then(setRestaurants)
+      .catch(console.error);
+  }, []);
 
   // Section 3: Featured food
   const featured = [

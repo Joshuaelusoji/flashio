@@ -10,7 +10,6 @@ import paymentRoutes from "./src/routes/payments.js";
 import categoriesRouter from "./src/routes/categories.js";
 import restaurantsRouter from "./src/routes/restaurants.js";
 
-
 import authMiddleware from "./src/middleware/authMiddleware.js";
 
 // Models
@@ -68,7 +67,6 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/restaurants", restaurantsRouter);
 
-
 /* =========================
    PRODUCTS
 ========================= */
@@ -101,7 +99,7 @@ app.get("/", (req, res) => {
 (async () => {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({ alter: true });
+    await sequelize.sync();
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

@@ -1,17 +1,18 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Menu() {
   const navigate = useNavigate();
 
   // Section 1: Categories
-  const categories = [
-    { name: "Restaurants", icon: "🍽️", path: "/restaurants", color: "bg-orange-700", text: "text-orange-600" },
-    { name: "Shops", icon: "🛍️", path: "/shops", color: "bg-red-100", text: "text-blue-600" },
-    { name: "Mall", icon: "🛒", path: "/mall", color: "bg-purple-100", text: "text-purple-600" },
-    { name: "Local Market", icon: "🥬", path: "/market", color: "bg-green-100", text: "text-yellow-600" },
-    { name: "Pharmacies", icon: "🏥", path: "/pharmacies", color: "bg-blue-100", text: "text-green-600" },
-    { name: "Laundry", icon: "🧺", path: "/laundry", color: "bg-yellow-100", text: "text-red-600" },
-  ];
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/categories`)
+      .then(res => res.json())
+      .then(setCategories)
+      .catch(console.error);
+  }, []);
 
   // Section 2: Restaurants
   const restaurants = [

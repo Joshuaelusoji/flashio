@@ -7,6 +7,7 @@ import sequelize from "./src/config/database.js";
 import authRoutes from "./src/routes/auth.js";
 import orderRoutes from "./src/routes/orders.js";
 import paymentRoutes from "./src/routes/payments.js";
+import categoriesRouter from "./src/routes/categories.js";
 
 import authMiddleware from "./src/middleware/authMiddleware.js";
 
@@ -26,7 +27,6 @@ import Product from "./src/models/Product.js";
 
 dotenv.config();
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -42,11 +42,7 @@ app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
+      if (allowedOrigins.includes(origin)) return callback(null, true);
       return callback(new Error("CORS not allowed"), false);
     },
     credentials: true,
@@ -55,9 +51,8 @@ app.use(
 );
 
 /* =========================
-   IMPORTANT MIDDLEWARE ORDER
+   MIDDLEWARE
 ========================= */
-
 app.use(express.json());
 app.use(cookieParser());
 
@@ -67,6 +62,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/categories", categoriesRouter);
 
 /* =========================
    PRODUCTS

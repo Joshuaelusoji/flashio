@@ -19,8 +19,8 @@ function Menu() {
         }
 
         const [categoriesRes, restaurantsRes] = await Promise.all([
-          fetch(`${baseURL}/api/categories`),
-          fetch(`${baseURL}/api/restaurants`),
+          fetch(`${baseURL}/categories`),
+          fetch(`${baseURL}/restaurants`),
         ]);
 
         if (!categoriesRes.ok || !restaurantsRes.ok) {

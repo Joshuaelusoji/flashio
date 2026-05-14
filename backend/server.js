@@ -27,6 +27,8 @@ import "./src/models/Restaurant.js";
 
 import Product from "./src/models/Product.js";
 
+import categoryRoutes from "./src/routes/categories.js";
+
 dotenv.config();
 
 const app = express();

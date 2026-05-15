@@ -9,6 +9,8 @@ import orderRoutes from "./src/routes/orders.js";
 import paymentRoutes from "./src/routes/payments.js";
 import categoriesRouter from "./src/routes/categories.js";
 import restaurantsRouter from "./src/routes/restaurants.js";
+import featuredMealsRouter from "./src/routes/featuredMeals.js";
+
 
 import authMiddleware from "./src/middleware/authMiddleware.js";
 
@@ -24,6 +26,8 @@ import "./src/models/RiderStatus.js";
 import "./src/models/Payment.js";
 import "./src/models/associations.js";
 import "./src/models/Restaurant.js";
+import "./src/models/FeaturedMeals.js";
+
 
 import Product from "./src/models/Product.js";
 
@@ -68,6 +72,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/restaurants", restaurantsRouter);
+app.use("/featured-meals", featuredMealsRouter);
+
 
 /* =========================
    PRODUCTS

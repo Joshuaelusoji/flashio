@@ -11,7 +11,6 @@ import categoriesRouter from "./src/routes/categories.js";
 import restaurantsRouter from "./src/routes/restaurants.js";
 import featuredMealsRouter from "./src/routes/featuredMeals.js";
 
-
 import authMiddleware from "./src/middleware/authMiddleware.js";
 
 // Models
@@ -28,10 +27,7 @@ import "./src/models/associations.js";
 import "./src/models/Restaurant.js";
 import "./src/models/FeaturedMeal.js";
 
-
 import Product from "./src/models/Product.js";
-
-import categoryRoutes from "./src/routes/categories.js";
 
 dotenv.config();
 
@@ -70,10 +66,9 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
-app.use("/api/categories", categoriesRouter);
-app.use("/api/restaurants", restaurantsRouter);
+app.use("/categories", categoriesRouter);
+app.use("/restaurants", restaurantsRouter);
 app.use("/featured-meals", featuredMealsRouter);
-
 
 /* =========================
    PRODUCTS

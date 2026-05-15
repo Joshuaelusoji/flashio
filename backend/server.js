@@ -26,7 +26,7 @@ import "./src/models/RiderStatus.js";
 import "./src/models/Payment.js";
 import "./src/models/associations.js";
 import "./src/models/Restaurant.js";
-import "./src/models/FeaturedMeals.js";
+import "./src/models/FeaturedMeal.js";
 
 
 import Product from "./src/models/Product.js";

@@ -66,9 +66,9 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
-app.use("/categories", categoriesRouter);
-app.use("/restaurants", restaurantsRouter);
-app.use("/featured-meals", featuredMealsRouter);
+app.use("/api/categories", categoriesRouter);
+app.use("/api/restaurants", restaurantsRouter);
+app.use("/api/featured-meals", featuredMealsRouter);
 
 /* =========================
    PRODUCTS

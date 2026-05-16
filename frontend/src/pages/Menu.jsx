@@ -6,6 +6,7 @@ function Menu() {
 
   const [categories, setCategories] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
+  const [featured, setFeatured] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,24 +18,28 @@ function Menu() {
           throw new Error("VITE_API_URL is not defined");
         }
 
-        const [categoriesRes, restaurantsRes] = await Promise.all([
+        const [categoriesRes, restaurantsRes, featuredRes] = await Promise.all([
           fetch(`${baseURL}/categories`),
           fetch(`${baseURL}/restaurants`),
+          fetch(`${baseURL}/featured-meals`),
         ]);
 
-        if (!categoriesRes.ok || !restaurantsRes.ok) {
+        if (!categoriesRes.ok || !restaurantsRes.ok || !featuredRes.ok) {
           throw new Error("API request failed");
         }
 
         const categoriesData = await categoriesRes.json();
         const restaurantsData = await restaurantsRes.json();
+        const featuredData = await featuredRes.json();
 
         setCategories(Array.isArray(categoriesData) ? categoriesData : []);
         setRestaurants(Array.isArray(restaurantsData) ? restaurantsData : []);
+        setFeatured(Array.isArray(featuredData) ? featuredData : []);
       } catch (err) {
         console.error("DATA LOAD ERROR:", err);
         setCategories([]);
         setRestaurants([]);
+        setFeatured([]);
       } finally {
         setLoading(false);
       }
@@ -42,19 +47,6 @@ function Menu() {
 
     loadData();
   }, []);
-
-  const featured = [
-    { id: 1, name: "Jollof Rice & Chicken", price: 2500, location: "Surulere", image: "https://images.unsplash.com/photo-1603496987674-79600a000f55?q=80&w=985&auto=format&fit=crop" },
-    { id: 2, name: "Amala & Ewedu", price: 1800, location: "Yaba", image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=987&auto=format&fit=crop" },
-    { id: 3, name: "Pounded Yam & Egusi", price: 3200, location: "Lekki", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=987&auto=format&fit=crop" },
-    { id: 4, name: "Fried Rice & Turkey", price: 3000, location: "Ikeja", image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=987&auto=format&fit=crop" },
-    { id: 5, name: "Ofada Rice & Sauce", price: 2800, location: "Ojodu", image: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=987&auto=format&fit=crop" },
-    { id: 6, name: "Peppered Snail", price: 4000, location: "Victoria Island", image: "https://images.unsplash.com/photo-1559847844-5315695dadae?q=80&w=987&auto=format&fit=crop" },
-    { id: 7, name: "Suya Special", price: 2200, location: "Gbagada", image: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=987&auto=format&fit=crop" },
-    { id: 8, name: "Beans & Plantain", price: 1500, location: "Akoka", image: "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?q=80&w=987&auto=format&fit=crop" },
-    { id: 9, name: "Burger & Fries", price: 3500, location: "Ikoyi", image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=999&auto=format&fit=crop" },
-    { id: 10, name: "Shawarma Combo", price: 2700, location: "Festac", image: "https://images.unsplash.com/photo-1529563021893-cc83c992d75d?q=80&w=987&auto=format&fit=crop" },
-  ];
 
   const drinks = [
     { id: 1, name: "Coca Cola", price: 500, location: "Everywhere", image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=1200&auto=format&fit=crop" },

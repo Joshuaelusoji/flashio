@@ -127,7 +127,7 @@ function Menu() {
                 src={item.image}
                 alt={item.name}
                 loading="lazy"
-                className="h-16 w-16 object-cover rounded-full"
+                className="h-10 w-10 object-cover rounded-full"
               />
               <div className="text-center mt-2">
                 <h3 className="text-xs text-white/90 font-medium">{item.name}</h3>

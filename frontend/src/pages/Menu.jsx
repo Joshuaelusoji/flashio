@@ -98,7 +98,7 @@ function Menu() {
             <div
               key={res.id}
               onClick={() => navigate(res.path)}
-              className=" w-20 text-center cursor-pointer"
+              className="flex-shrink-0 h-10 w-10 text-center cursor-pointer"
             >
               <img
                 src={res.image}

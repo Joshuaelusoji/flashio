@@ -130,7 +130,7 @@ function Menu() {
                 className="h-10 w-10 object-cover rounded-full"
               />
               <div className="text-center">
-                <h3 className="text-xs text-white/90 font-medium">{item.name}</h3>
+                <h3 className="text-xs text-white/90 font-normal">{item.name}</h3>
                 <p className="text-xs text-white/60">📍 {item.location}</p>
                 <p className="text-orange-500 text-xs font-bold mt-1">₦{item.price}</p>
               </div>

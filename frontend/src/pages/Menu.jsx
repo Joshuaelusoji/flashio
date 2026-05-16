@@ -121,7 +121,7 @@ function Menu() {
           {featured.map((item) => (
             <div
               key={item.id}
-              className="flex-shrink-0 w-32 bg-black rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
+              className="flex-shrink-0 h-32 w-32 bg-black rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
             >
               <img
                 src={item.image}

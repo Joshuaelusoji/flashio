@@ -117,7 +117,7 @@ function Menu() {
       <section className="mb-6">
         <h2 className="text-lg font-semibold mb-2">Featured Meals</h2>
 
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide pt-2 pb-2">
           {featured.map((item) => (
             <div
               key={item.id}

@@ -10,6 +10,8 @@ import paymentRoutes from "./src/routes/payments.js";
 import categoriesRouter from "./src/routes/categories.js";
 import restaurantsRouter from "./src/routes/restaurants.js";
 import featuredMealsRouter from "./src/routes/featuredMeals.js";
+import drinksRouter from "./src/routes/drinks.js";
+
 
 import authMiddleware from "./src/middleware/authMiddleware.js";
 
@@ -26,6 +28,8 @@ import "./src/models/Payment.js";
 import "./src/models/associations.js";
 import "./src/models/Restaurant.js";
 import "./src/models/FeaturedMeal.js";
+import "./src/models/Drink.js";
+
 
 import Product from "./src/models/Product.js";
 
@@ -69,6 +73,8 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/categories", categoriesRouter);
 app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/featured-meals", featuredMealsRouter);
+app.use("/api/drinks", drinksRouter);
+
 
 /* =========================
    PRODUCTS

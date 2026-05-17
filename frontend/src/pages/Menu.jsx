@@ -7,6 +7,7 @@ function Menu() {
   const [categories, setCategories] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
   const [featured, setFeatured] = useState([]);
+  const [drinks, setDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,28 +19,32 @@ function Menu() {
           throw new Error("VITE_API_URL is not defined");
         }
 
-        const [categoriesRes, restaurantsRes, featuredRes] = await Promise.all([
+        const [categoriesRes, restaurantsRes, featuredRes, drinksRes] = await Promise.all([
           fetch(`${baseURL}/categories`),
           fetch(`${baseURL}/restaurants`),
           fetch(`${baseURL}/featured-meals`),
+          fetch(`${baseURL}/drinks`),
         ]);
 
-        if (!categoriesRes.ok || !restaurantsRes.ok || !featuredRes.ok) {
+        if (!categoriesRes.ok || !restaurantsRes.ok || !featuredRes.ok || !drinksRes.ok) {
           throw new Error("API request failed");
         }
 
         const categoriesData = await categoriesRes.json();
         const restaurantsData = await restaurantsRes.json();
         const featuredData = await featuredRes.json();
+        const drinksData = await drinksRes.json();
 
         setCategories(Array.isArray(categoriesData) ? categoriesData : []);
         setRestaurants(Array.isArray(restaurantsData) ? restaurantsData : []);
         setFeatured(Array.isArray(featuredData) ? featuredData : []);
+        setDrinks(Array.isArray(drinksData) ? drinksData : []);
       } catch (err) {
         console.error("DATA LOAD ERROR:", err);
         setCategories([]);
         setRestaurants([]);
         setFeatured([]);
+        setDrinks([]);
       } finally {
         setLoading(false);
       }
@@ -47,13 +52,6 @@ function Menu() {
 
     loadData();
   }, []);
-
-  const drinks = [
-    { id: 1, name: "Coca Cola", price: 500, location: "Everywhere", image: "https://images.unsplash.com/photo-1629203851122-3726ecdf080e?q=80&w=1200&auto=format&fit=crop" },
-    { id: 2, name: "Zobo Drink", price: 700, location: "Lagos", image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?q=80&w=1200&auto=format&fit=crop" },
-    { id: 3, name: "Orange Juice", price: 1200, location: "Ikeja", image: "https://images.unsplash.com/photo-1600271886742-f049cd5bba3f?q=80&w=1200&auto=format&fit=crop" },
-    { id: 4, name: "Milkshake", price: 1800, location: "Victoria Island", image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?q=80&w=1200&auto=format&fit=crop" },
-  ];
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">

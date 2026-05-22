@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
@@ -8,6 +8,8 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const fromPath = location.state?.from;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,6 +19,11 @@ function Login() {
       const response = await login({ email, password });
 
       if (response.success) {
+        if (fromPath) {
+          navigate(fromPath, { replace: true });
+          return;
+        }
+
         const role = (response.data.user.role || "user").toLowerCase();
 
         // Redirect based on role

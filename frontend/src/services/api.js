@@ -132,6 +132,29 @@ export async function getRiderOrders() {
 }
 
 /* =========================
+   GET USER ORDERS
+========================= */
+export async function getUserOrders() {
+  try {
+    const res = await fetch(`${BASE_API_URL}/orders/my-orders`, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Failed to fetch user orders");
+    }
+
+    return data;
+  } catch (error) {
+    console.error("USER ORDERS ERROR:", error);
+    return { orders: [] };
+  }
+}
+
+/* =========================
    VERIFY DELIVERY CODE (RIDER)
 ========================= */
 export async function verifyDeliveryCode(orderId, code) {
@@ -161,7 +184,7 @@ export async function verifyDeliveryCode(orderId, code) {
 /* =========================
    PROCESS PAYMENT
 ========================= */
-export async function initializePayment(orderId, location) {
+export async function initializePayment(orderId, location, paymentMethod) {
   try {
     const res = await fetch(`${BASE_API_URL}/payments/initialize`, {
       method: "POST",
@@ -169,7 +192,7 @@ export async function initializePayment(orderId, location) {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ orderId, location }),
+      body: JSON.stringify({ orderId, location, paymentMethod }),
     });
 
     const data = await res.json();

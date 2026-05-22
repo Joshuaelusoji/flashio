@@ -4,6 +4,20 @@ import { getMe, loginUser, logoutUser } from "../services/api";
 
 const AuthContext = createContext(null);
 
+function getStoredPaymentMethod(user) {
+  if (typeof window === "undefined" || !user) return null;
+  const userId = user.id || user._id || user.email;
+  if (!userId) return null;
+  return window.localStorage.getItem(`flashio_payment_method_${userId}`);
+}
+
+function savePaymentMethodForUser(user, method) {
+  if (typeof window === "undefined" || !user) return;
+  const userId = user.id || user._id || user.email;
+  if (!userId) return;
+  window.localStorage.setItem(`flashio_payment_method_${userId}`, method);
+}
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);       // null = logged out
   const [loading, setLoading] = useState(true); // true while /me is in-flight on mount
@@ -12,8 +26,16 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     getMe()
       .then((res) => {
-        if (res.success) setUser(res.data.user);
-        else setUser(null);
+        if (res.success) {
+          const savedMethod = getStoredPaymentMethod(res.data.user);
+          setUser({
+            ...res.data.user,
+            paymentMethod:
+              savedMethod || res.data.user?.paymentMethod || "card",
+          });
+        } else {
+          setUser(null);
+        }
       })
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
@@ -22,7 +44,12 @@ export function AuthProvider({ children }) {
   const login = async (credentials) => {
     const response = await loginUser(credentials);
     if (response.success) {
-      setUser(response.data.user);
+      const savedMethod = getStoredPaymentMethod(response.data.user);
+      setUser({
+        ...response.data.user,
+        paymentMethod:
+          savedMethod || response.data.user?.paymentMethod || "card",
+      });
     }
     return response; // caller handles redirect / error display
   };
@@ -32,8 +59,19 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const setPaymentMethod = (method) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      const next = { ...prev, paymentMethod: method };
+      savePaymentMethodForUser(prev, method);
+      return next;
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, loading, login, logout, setPaymentMethod }}
+    >
       {children}
     </AuthContext.Provider>
   );

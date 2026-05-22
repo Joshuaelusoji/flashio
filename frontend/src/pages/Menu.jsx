@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { mockCategories, mockRestaurants, mockFeatured, mockDrinks } from "../mocks/menuData";
+
+const USE_MOCK = import.meta.env.VITE_USE_MOCK === "true";
 
 function Menu() {
   const navigate = useNavigate();
@@ -12,6 +15,17 @@ function Menu() {
 
   useEffect(() => {
     const loadData = async () => {
+      // ── MOCK MODE ──
+      if (USE_MOCK) {
+        setCategories(mockCategories);
+        setRestaurants(mockRestaurants);
+        setFeatured(mockFeatured);
+        setDrinks(mockDrinks);
+        setLoading(false);
+        return;
+      }
+
+      // ── REAL API ──
       try {
         const baseURL = import.meta.env.VITE_API_URL;
 
@@ -83,11 +97,14 @@ function Menu() {
       <section className="mb-6">
         <h2 className="text-lg font-semibold mb-4">Explore Restaurants</h2>
 
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+        {loading ? (
+          <p className="text-sm text-gray-500">Loading...</p>
+        ) : (
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
           {restaurants.map((res) => (
             <div
               key={res.id}
-              onClick={() => navigate(res.path)}
+              onClick={() => navigate(`/category/restaurants/${res.id}`)}
               className="flex-shrink-0 w-20 text-center cursor-pointer"
             >
               <img
@@ -101,6 +118,10 @@ function Menu() {
             </div>
           ))}
         </div>
+        )
+        
+        }
+        
       </section>
 
       {/* ================= FEATURED ================= */}

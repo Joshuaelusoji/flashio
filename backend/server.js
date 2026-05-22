@@ -4,18 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import sequelize from "./src/config/database.js";
 
-import authRoutes from "./src/routes/auth.js";
-import orderRoutes from "./src/routes/orders.js";
-import paymentRoutes from "./src/routes/payments.js";
-import categoriesRouter from "./src/routes/categories.js";
-import restaurantsRouter from "./src/routes/restaurants.js";
-import featuredMealsRouter from "./src/routes/featuredMeals.js";
-import drinksRouter from "./src/routes/drinks.js";
-
-
-import authMiddleware from "./src/middleware/authMiddleware.js";
-
-// Models
+// Models (keep for registration)
 import "./src/models/User.js";
 import "./src/models/Wallet.js";
 import "./src/models/WalletTransaction.js";
@@ -30,7 +19,16 @@ import "./src/models/Restaurant.js";
 import "./src/models/FeaturedMeal.js";
 import "./src/models/Drink.js";
 
+// Routes
+import authRoutes from "./src/routes/auth.js";
+import orderRoutes from "./src/routes/orders.js";
+import paymentRoutes from "./src/routes/payments.js";
+import categoriesRouter from "./src/routes/categories.js";
+import restaurantsRouter from "./src/routes/restaurants.js";
+import featuredMealsRouter from "./src/routes/featuredMeals.js";
+import drinksRouter from "./src/routes/drinks.js";
 
+import authMiddleware from "./src/middleware/authMiddleware.js";
 import Product from "./src/models/Product.js";
 
 dotenv.config();
@@ -75,7 +73,6 @@ app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/featured-meals", featuredMealsRouter);
 app.use("/api/drinks", drinksRouter);
 
-
 /* =========================
    PRODUCTS
 ========================= */
@@ -96,24 +93,26 @@ app.post("/api/products", authMiddleware, async (req, res) => {
 });
 
 /* =========================
-   HEALTH
+   HEALTH CHECK
 ========================= */
 app.get("/", (req, res) => {
   res.send("Flashio backend is running");
 });
 
 /* =========================
-   START
+   START SERVER
 ========================= */
 (async () => {
   try {
     await sequelize.authenticate();
-    await sequelize.sync();
+    console.log("Database connected");
+
+    // ❌ IMPORTANT: removed sequelize.sync()
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (err) {
-    console.error(err);
+    console.error("Server startup error:", err);
   }
 })();

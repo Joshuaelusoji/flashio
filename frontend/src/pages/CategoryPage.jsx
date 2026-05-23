@@ -8,6 +8,7 @@ const dataMap = {
   local: mockLocal,
   pharmacy: mockPharmacy,
   laundromat: mockLaundromat,
+  
 };
 
 function CategoryPage() {

@@ -1,13 +1,6 @@
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
-import {
-  mockRestaurants,
-  mockShops,
-  mockMall,
-  mockLocal,
-  mockPharmacy,
-  mockLaundromat,
-} from "../mocks/menuData";
+import { mockRestaurants, mockShops, mockMall, mockLocal, mockPharmacy, mockLaundromat } from "../mocks/menuData";
 import { useAuth } from "../context/AuthContext";
 
 const dataMap = {

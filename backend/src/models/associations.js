@@ -9,7 +9,7 @@ import WalletTransaction from "./WalletTransaction.js";
 import Payment from "./Payment.js";
 import Category from "./Category.js";
 import Vendor from "./Vendor.js";
-import Product from "./Product.js";
+
 
 /* =========================
    USER RELATIONSHIPS

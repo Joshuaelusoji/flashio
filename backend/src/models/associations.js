@@ -7,6 +7,9 @@ import Product from "./Product.js";
 import Wallet from "./Wallet.js";
 import WalletTransaction from "./WalletTransaction.js";
 import Payment from "./Payment.js";
+import Category from "./Category.js";
+import Vendor from "./Vendor.js";
+import Product from "./Product.js";
 
 /* =========================
    USER RELATIONSHIPS
@@ -63,3 +66,10 @@ Wallet.hasMany(WalletTransaction, {
 WalletTransaction.belongsTo(Wallet, {
   foreignKey: "walletId"
 });
+
+Category.hasMany(Vendor, { foreignKey: "categoryId", onDelete: "CASCADE" });
+Vendor.belongsTo(Category, { foreignKey: "categoryId", onDelete: "CASCADE" });
+
+// Vendor -> Product
+Vendor.hasMany(Product, { foreignKey: "vendorId", onDelete: "CASCADE" });
+Product.belongsTo(Vendor, { foreignKey: "vendorId", onDelete: "CASCADE" });

@@ -1,3 +1,4 @@
+// src/models/Category.js
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
@@ -21,13 +22,19 @@ const Category = sequelize.define(
       allowNull: false,
     },
 
-    path: {
-      type: DataTypes.STRING,
+    slug: {
+      type: DataTypes.STRING, // "restaurants", "shops" — used to build the path on the frontend
+      allowNull: false,
+      unique: true,
+    },
+
+    color: {
+      type: DataTypes.STRING, // "bg-orange-100"
       allowNull: false,
     },
 
-    theme: {
-      type: DataTypes.STRING,
+    textColor: {
+      type: DataTypes.STRING, // "text-orange-800"
       allowNull: false,
     },
   },

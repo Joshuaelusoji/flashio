@@ -1,3 +1,4 @@
+// src/models/Product.js
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
@@ -10,6 +11,15 @@ const Product = sequelize.define(
       primaryKey: true,
     },
 
+    vendorId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: "Vendors",
+        key: "id",
+      },
+    },
+
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -20,7 +30,7 @@ const Product = sequelize.define(
     },
 
     price: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
 

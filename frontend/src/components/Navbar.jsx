@@ -25,7 +25,7 @@ export default function Navbar() {
         <div className="flex gap-4">
 
           {/* Search Box — hidden on mobile/tablet */}
-          <div className=" md:flex items-center gap-2 bg-[#f5f5f5] rounded-[20px] px-[14px] py-2 focus-within:bg-white transition-colors">
+          <div className="hidden md:flex items-center gap-2 bg-[#f5f5f5] rounded-[20px] px-[14px] py-2 focus-within:bg-white transition-colors">
             <span className="text-sm text-[#666]">🔍</span>
             <input
               className="bg-transparent border-none outline-none text-[13px] w-[120px] text-[#1a1a1a] placeholder:text-[#999]"

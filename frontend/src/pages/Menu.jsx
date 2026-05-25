@@ -73,20 +73,20 @@ function Menu() {
 
       {/* ================= CATEGORIES ================= */}
       <section className="mb-6">
-        <h2 className="text-base font-semibold mb-4">Browse Categories</h2>
+        <h2 className="text-base font-bold mb-4">Browse Categories</h2>
 
         {loading ? (
           <p className="text-sm text-gray-500">Loading...</p>
         ) : (
-          <div className="grid grid-cols-4 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 md:grid-cols-4 gap-1">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => navigate(cat.path || "/")}
-                className={`p-4 rounded-lg shadow hover:shadow-md transition ${cat.color} ${cat.text} text-left`}
+                className={`flex flex-col gap-1 py-3 p-3 rounded-md shadow-lg hover:shadow-md transition ${cat.color} ${cat.text} text-left`}
               >
-                <p className="text-sm">{cat.icon}</p>
-                <p className="text-sm tracking-tighter max-w-fit">{cat.name}</p>
+                <p className="text-xs max-w-fit">{cat.icon}</p>
+                <p className="text-xs font-medium -tracking-wide max-w-fit">{cat.name}</p>
               </button>
             ))}
           </div>

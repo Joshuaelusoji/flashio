@@ -68,25 +68,25 @@ function Menu() {
   }, []);
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Menu</h1>
+    <div className="p-3 bg-gray-200 min-h-screen">
+      <h1 className="text-2xl font-bold mt-12 mb-6">Menu</h1>
 
       {/* ================= CATEGORIES ================= */}
-      <section className="mb-10">
-        <h2 className="text-lg font-semibold mb-4">Browse Categories</h2>
+      <section className="mb-6">
+        <h2 className="text-base font-semibold mb-4">Browse Categories</h2>
 
         {loading ? (
           <p className="text-sm text-gray-500">Loading...</p>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-4 md:grid-cols-4 gap-4">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => navigate(cat.path || "/")}
                 className={`p-4 rounded-lg shadow hover:shadow-md transition ${cat.color} ${cat.text} text-left`}
               >
-                <p className="text-2xl">{cat.icon}</p>
-                <p className="mt-2 font-medium">{cat.name}</p>
+                <p className="text-sm">{cat.icon}</p>
+                <p className="text-sm tracking-tighter max-w-fit">{cat.name}</p>
               </button>
             ))}
           </div>
@@ -95,22 +95,19 @@ function Menu() {
 
       {/* ================= RESTAURANTS ================= */}
       <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-4">Explore Restaurants</h2>
+        <h2 className="text-base font-semibold mb-2">Explore Restaurants</h2>
 
         {loading ? (
           <p className="text-sm text-gray-500">Loading...</p>
         ) : (
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide py-2">
           {restaurants.map((res) => (
             <div
               key={res.id}
               onClick={() => navigate(`/category/restaurants/${res.id}`)}
-              className="flex-shrink-0 w-20 text-center cursor-pointer"
+              className="pt-1 flex-shrink-0 w-20 text-center cursor-pointer"
             >
-              <img
-                src={res.image}
-                alt={res.name}
-                loading="lazy"
+              <img src={res.image} alt={res.name} loading="lazy" 
                 className="w-14 h-14 rounded-full object-cover mx-auto"
               />
               <p className="text-xs mt-1 break-words">{res.name}</p>
@@ -126,7 +123,7 @@ function Menu() {
 
       {/* ================= FEATURED ================= */}
       <section className="mb-6">
-        <h2 className="text-lg font-semibold mb-2">Featured Meals</h2>
+        <h2 className="text-base font-semibold mb-2">Featured Meals</h2>
 
         <div className="flex gap-3 overflow-x-auto scrollbar-hide pt-2 pb-2">
           {featured.map((item) => (
@@ -151,10 +148,10 @@ function Menu() {
       </section>
 
       {/* ================= DRINKS ================= */}
-      <section>
-        <h2 className="text-lg font-semibold mb-2">Drinks</h2>
+      <section className="mb-6">
+        <h2 className="text-base font-semibold mb-2">Drinks</h2>
 
-        <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide py-2">
           {drinks.map((item) => (
             <div
               key={item.id}

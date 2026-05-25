@@ -18,14 +18,14 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed w-full top-0 z-[100] bg-[#605c5c] px-5 py-4">
+    <nav className="sticky w-full top-0 z-[100] bg-[#605c5c] px-5 py-4">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between">
 
         {/* Right Section */}
-        <div className="flex items-center gap-4">
+        <div className="flex gap-4">
 
           {/* Search Box — hidden on mobile/tablet */}
-          <div className="hidden md:flex items-center gap-2 bg-[#f5f5f5] rounded-[20px] px-[14px] py-2 focus-within:bg-white transition-colors">
+          <div className=" md:flex items-center gap-2 bg-[#f5f5f5] rounded-[20px] px-[14px] py-2 focus-within:bg-white transition-colors">
             <span className="text-sm text-[#666]">🔍</span>
             <input
               className="bg-transparent border-none outline-none text-[13px] w-[120px] text-[#1a1a1a] placeholder:text-[#999]"
@@ -34,11 +34,11 @@ export default function Navbar() {
           </div>
 
           {/* Desktop auth — hidden on mobile */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="flex items-center gap-2">
             {user ? (
               <>
                 <span className="text-[13px] font-semibold text-[#1a1a1a]">
-                  Hi, <span className="text-amber-400">{user.firstName}</span>
+                  Hi, <span className="text-green-500">{user.firstName}</span>
                 </span>
                 <button
                   onClick={handleLogout}

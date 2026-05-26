@@ -11,7 +11,7 @@ module.exports = {
           id: uuidv4(),
           path: "indeego-restaurant",
           name: "Indeego Restaurant",
-          image: "/images/restaurants/indeego.webp",
+          image: "/images/restaurants/Indeego.webp",
           location: "Fagbale",
           deliveryTime: "20-30 mins",
           deliveryFee: 500,

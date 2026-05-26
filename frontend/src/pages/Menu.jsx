@@ -109,7 +109,12 @@ function Menu() {
         {loading ? (
           <CategorySkeleton />
         ) : (
-          <div className="grid grid-cols-4 md:grid-cols-4 gap-1">
+          <CategorySkeleton />
+        
+        )}
+      </section>
+
+      {/* <div className="grid grid-cols-4 md:grid-cols-4 gap-1">
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -120,9 +125,7 @@ function Menu() {
                 <p className="text-xs font-medium -tracking-wide max-w-fit">{cat.name}</p>
               </button>
             ))}
-          </div>
-        )}
-      </section>
+          </div> */}
 
       {/* ================= RESTAURANTS ================= */}
       <section className="mb-6">

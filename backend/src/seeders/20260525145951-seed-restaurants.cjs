@@ -135,6 +135,19 @@ module.exports = {
           description: "Fresh subs made your way.",
           createdAt: new Date(),
           updatedAt: new Date(),
+        },
+
+        {
+          id: uuidv4(),
+          path: "ongbona-energy",
+          name: "Ongbona",
+          image: "https://placehold.co/56x56",
+          location: "Energy",
+          deliveryTime: "15-25 mins",
+          deliveryFee: 400,
+          description: "Fresh subs made your way.",
+          createdAt: new Date(),
+          updatedAt: new Date(),
         }
       ],
       {}

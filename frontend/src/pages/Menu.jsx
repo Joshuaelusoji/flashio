@@ -6,7 +6,7 @@ function CategorySkeleton() {
   return (
     <div className="grid grid-cols-4 gap-1">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="flex flex-col gap-1 py-3 p-3 rounded-md bg-gray-300 animate-pulse h-16" />
+        <div key={i} className="flex flex-col gap-1 py-3 p-3 rounded-md bg-gray-300 animate-spin h-16" />
       ))}
     </div>
   );
@@ -17,9 +17,9 @@ function RestaurantSkeleton() {
     <div className="flex gap-3 overflow-x-auto scrollbar-hide py-2">
       {Array.from({ length: 6 }).map((_, i) => (
         <div key={i} className="flex-shrink-0 w-20 flex flex-col items-center gap-1">
-          <div className="w-14 h-14 rounded-full bg-gray-300 animate-pulse" />
-          <div className="w-14 h-2 rounded bg-gray-300 animate-pulse" />
-          <div className="w-10 h-2 rounded bg-gray-300 animate-pulse" />
+          <div className="w-14 h-14 rounded-full bg-gray-300 animate-spin" />
+          <div className="w-14 h-2 rounded bg-gray-300 animate-spin" />
+          <div className="w-10 h-2 rounded bg-gray-300 animate-spin" />
         </div>
       ))}
     </div>

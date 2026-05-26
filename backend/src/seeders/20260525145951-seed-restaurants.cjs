@@ -1,11 +1,15 @@
 'use strict';
 
+const { v4: uuidv4 } = require('uuid');
+
 module.exports = {
   async up(queryInterface) {
     await queryInterface.bulkInsert(
       "Restaurants",
       [
         {
+          id: uuidv4(),
+          path: "indeego-restaurant",
           name: "Indeego Restaurant",
           image: "/images/indeego.webp",
           location: "Fagbale",
@@ -17,8 +21,10 @@ module.exports = {
         },
 
         {
+          id: uuidv4(),
+          path: "iya-ruka",
           name: "Iya Ruka",
-          image: "https://placehold.co/56x56",
+          image: "/images/Iya_ruka.jpg",
           location: "Obande",
           deliveryTime: "15-25 mins",
           deliveryFee: 400,
@@ -28,6 +34,34 @@ module.exports = {
         },
 
         {
+          id: uuidv4(),
+          path: "oni-tower",
+          name: "Oni Tower",
+          image: "/images/Oni_tower.jpg",
+          location: "Mayfair",
+          deliveryTime: "20-35 mins",
+          deliveryFee: 450,
+          description: "Classic Nigerian fast food chain.",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+
+        {
+          id: uuidv4(),
+          path: "ongbona",
+          name: "Ongbona",
+          image: "/images/Ongbona.jpg",
+          location: "Mayfair",
+          deliveryTime: "20-35 mins",
+          deliveryFee: 450,
+          description: "Classic Nigerian fast food chain.",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+
+        {
+          id: uuidv4(),
+          path: "oni-tower-2",
           name: "Oni Tower",
           image: "https://placehold.co/56x56",
           location: "Mayfair",
@@ -39,6 +73,8 @@ module.exports = {
         },
 
         {
+          id: uuidv4(),
+          path: "mama-put",
           name: "Mama Put",
           image: "https://placehold.co/56x56",
           location: "Fagbale",
@@ -50,6 +86,8 @@ module.exports = {
         },
 
         {
+          id: uuidv4(),
+          path: "ivory-bite",
           name: "Ivory Bite",
           image: "https://placehold.co/56x56",
           location: "Ibadan Road",
@@ -61,6 +99,8 @@ module.exports = {
         },
 
         {
+          id: uuidv4(),
+          path: "sharon",
           name: "Sharon",
           image: "https://placehold.co/56x56",
           location: "Damico",
@@ -72,6 +112,8 @@ module.exports = {
         },
 
         {
+          id: uuidv4(),
+          path: "captain-cook",
           name: "Captain Cook",
           image: "https://placehold.co/56x56",
           location: "Mayfair",
@@ -83,6 +125,8 @@ module.exports = {
         },
 
         {
+          id: uuidv4(),
+          path: "ongbona-energy",
           name: "Ongbona",
           image: "https://placehold.co/56x56",
           location: "Energy",
@@ -91,29 +135,7 @@ module.exports = {
           description: "Fresh subs made your way.",
           createdAt: new Date(),
           updatedAt: new Date(),
-        },
-
-        {
-          name: "Mr Bigg's",
-          image: "https://placehold.co/56x56",
-          location: "VI",
-          deliveryTime: "20-30 mins",
-          deliveryFee: 400,
-          description: "Nigeria's iconic fast food brand.",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-
-        {
-          name: "Tantalizers",
-          image: "https://placehold.co/56x56",
-          location: "Lekki",
-          deliveryTime: "20-35 mins",
-          deliveryFee: 450,
-          description: "Nigerian fast food with local flavours.",
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
+        }
       ],
       {}
     );

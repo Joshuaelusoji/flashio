@@ -24,7 +24,7 @@ module.exports = {
           id: uuidv4(),
           path: "iya-ruka",
           name: "Iya Ruka",
-          image: "/images/restaurants/Iyaruka.jpg",
+          image: "/images/restaurants/Tantalizer.jpeg",
           location: "Obande",
           deliveryTime: "15-25 mins",
           deliveryFee: 400,

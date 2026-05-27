@@ -33,7 +33,7 @@ function CategoryPage() {
             <div
               key={item.id}
               onClick={() => navigate(`/category/${type}/${item.id}`)}
-              className="bg-red-300 rounded-xl p-4 cursor-pointer hover:shadow-md transition"
+              className="bg-white rounded-xl p-4 cursor-pointer hover:shadow-md transition"
             >
               <img
                 src={item.image}

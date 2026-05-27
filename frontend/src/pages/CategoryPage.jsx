@@ -20,7 +20,7 @@ function CategoryPage() {
     <div className="p-6 bg-gray-100 min-h-screen">
       {/* Header */}
       <div className="flex items-center gap-3 mb-6">
-        <button onClick={() => navigate(-1)} className="text-gray-500 text-sm">← Back</button>
+        <button onClick={() => navigate(-1)} className="text-gray-500 text-sm">←</button>
         <h1 className="text-2xl font-bold capitalize">{type}</h1>
       </div>
 

@@ -2,10 +2,11 @@
 'use strict';
 require('dotenv').config();
 
-const isProduction = process.env.NODE_ENV === 'production';
+const Production = process.env.NODE_ENV === 'production';
+const DatabaseURL = process.env.DATABASE_URL;
 
-if (isProduction && !process.env.DATABASE_URL) {
-  throw new Error('Missing DATABASE_URL environment variable');
+if (Production && !DatabaseURL) {
+  throw new Error('Missing DATABASE_URL 🫙 environment variable');
 }
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: 'postgres',
     logging: console.log,
-    pool: { max: 10, min: 2, acquire: 30000, idle: 10000 }
+    pool: { max: 20, min: 3, acquire: 15000, idle: 30000 }
   },
   test: {
     username: process.env.DB_USER,
@@ -24,18 +25,20 @@ module.exports = {
     database: process.env.DB_TEST,
     host: process.env.DB_HOST,
     dialect: 'postgres',
-    logging: false
+    logging: false,
+    pool: { max: 5, min: 1, acquire: 15000, idle: 30000 }
   },
   production: {
     use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
     logging: false,
     dialectOptions: {
+      connectTimeout: 10000,
       ssl: {
         require: true,
         rejectUnauthorized: false
       }
     },
-    pool: { max: 10, min: 2, acquire: 30000, idle: 10000 }
+    pool: { max: 20, min: 3, acquire: 15000, idle: 30000 }
   }
 };

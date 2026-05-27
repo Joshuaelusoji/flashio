@@ -4,16 +4,19 @@ dotenv.config();
 
 import sgMail from "@sendgrid/mail";
 
+const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
+const EMAIL_FROM = process.env.EMAIL_FROM;
+
 // Validate API key early
-if (!process.env.SENDGRID_API_KEY) {
+if (!SENDGRID_API_KEY) {
   console.error("❌ SENDGRID_API_KEY is missing in environment variables");
 } else {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  sgMail.setApiKey(SENDGRID_API_KEY);
   console.log("✅ SendGrid initialized");
 }
 
 // Validate sender email
-if (!process.env.EMAIL_FROM) {
+if (!EMAIL_FROM) {
   console.error("❌ EMAIL_FROM is not set in environment variables");
 }
 
@@ -24,11 +27,11 @@ export const sendEmail = async ({ to, subject, html }) => {
   try {
     console.log("🚀 Preparing to send email...");
     console.log("📨 To:", to);
-    console.log("📤 From:", process.env.EMAIL_FROM);
+    console.log("📤 From:", EMAIL_FROM);
 
     const msg = {
       to,
-      from: process.env.EMAIL_FROM, // DO NOT fallback to gmail silently
+      from: EMAIL_FROM, // DO NOT fallback to gmail silently
       subject,
       html,
     };

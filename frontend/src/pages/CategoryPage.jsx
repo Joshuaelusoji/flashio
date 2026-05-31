@@ -30,15 +30,10 @@ function CategoryPage() {
       ) : (
         <div className="grid grid-cols-2 gap-4">
           {items.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => navigate(`/category/${type}/${item.id}`)}
+            <div key={item.id}onClick={() => navigate(`/category/${type}/${item.id}`)}
               className="bg-white rounded-xl p-4 cursor-pointer hover:shadow-md transition"
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-24 object-cover rounded-lg mb-3"
+          >
+              <img src={item.image} alt={item.name} className="w-full h-24 object-cover rounded-lg mb-3"
               />
               <h3 className="font-semibold text-sm">{item.name}</h3>
               <p className="text-xs text-gray-500">📍 {item.location}</p>

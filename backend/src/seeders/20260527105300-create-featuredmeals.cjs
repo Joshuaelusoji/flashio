@@ -55,7 +55,7 @@ module.exports = {
         name: 'Asun & Plantain',
         price: 3800,
         location: 'Yaba',
-        image: 'images/featuredMeals/Asun_plantain.jpg',
+        image: 'images/featuredMeals/Plantain.webp',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

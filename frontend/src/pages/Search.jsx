@@ -1,24 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
-import {
-  mockRestaurants,
-  mockShops,
-  mockMall,
-  mockLocal,
-  mockPharmacy,
-  mockLaundromat,
-} from "../mocks/menuData";
-
-const sources = [
-  { label: "Restaurants", data: mockRestaurants, type: "restaurants" },
-  { label: "Shops", data: mockShops, type: "shops" },
-  { label: "Mall", data: mockMall, type: "mall" },
-  { label: "Local", data: mockLocal, type: "local" },
-  { label: "Pharmacy", data: mockPharmacy, type: "pharmacy" },
-  { label: "Laundromat", data: mockLaundromat, type: "laundromat" },
-];
 
 function normalize(text) {
   return text?.toString().toLowerCase().trim();
@@ -30,9 +13,50 @@ export default function Search() {
   const { user } = useAuth();
   const { addToCart } = useCart();
   const [query, setQuery] = useState("");
+  const [vendors, setVendors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const allShops = sources.flatMap((source) =>
-    source.data.map((shop) => ({ ...shop, category: source.type }))
+  useEffect(() => {
+    const loadVendors = async () => {
+      setLoading(true);
+      setError("");
+
+      try {
+        const baseURL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+        const res = await fetch(`${baseURL}/vendors?includeProducts=true`);
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch vendors");
+        }
+
+        const data = await res.json();
+        setVendors(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Search load error:", err);
+        setError("Unable to load search data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadVendors();
+  }, []);
+
+  const allShops = useMemo(
+    () =>
+      vendors.map((vendor) => ({
+        ...vendor,
+        category: vendor.Category?.slug || "",
+        menu: Array.isArray(vendor.Products)
+          ? vendor.Products.map((product) => ({
+              ...product,
+              price: product.price,
+              description: product.description,
+            }))
+          : [],
+      })),
+    [vendors]
   );
 
   const searchResults = useMemo(() => {
@@ -40,19 +64,28 @@ export default function Search() {
 
     const normalized = normalize(query);
 
-    const shops = allShops.filter((shop) =>
-      normalize(shop.name).includes(normalized) ||
-      normalize(shop.location).includes(normalized) ||
-      normalize(shop.description).includes(normalized)
+    const shops = allShops.filter(
+      (shop) =>
+        normalize(shop.name).includes(normalized) ||
+        normalize(shop.location).includes(normalized) ||
+        normalize(shop.description).includes(normalized)
     );
 
-    const items = allShops.flatMap((shop) =>
-      (shop.menu || []).map((item) => ({ ...item, shopName: shop.name, shopId: shop.id, shopType: shop.category }))
-    ).filter((item) =>
-      normalize(item.name).includes(normalized) ||
-      normalize(item.description).includes(normalized) ||
-      normalize(item.shopName).includes(normalized)
-    );
+    const items = allShops
+      .flatMap((shop) =>
+        (shop.menu || []).map((item) => ({
+          ...item,
+          shopName: shop.name,
+          shopId: shop.id,
+          shopType: shop.category,
+        }))
+      )
+      .filter(
+        (item) =>
+          normalize(item.name).includes(normalized) ||
+          normalize(item.description).includes(normalized) ||
+          normalize(item.shopName).includes(normalized)
+      );
 
     return { shops, items };
   }, [query, allShops]);
@@ -84,7 +117,15 @@ export default function Search() {
           />
         </div>
 
-        {!query ? (
+        {loading ? (
+          <div className="rounded-3xl bg-white p-6 shadow-sm">
+            <p className="text-sm text-gray-500">Loading search data...</p>
+          </div>
+        ) : error ? (
+          <div className="rounded-3xl bg-white p-6 shadow-sm">
+            <p className="text-sm text-red-500">{error}</p>
+          </div>
+        ) : !query ? (
           <div className="space-y-4">
             <div className="rounded-3xl bg-white p-6 shadow-sm">
               <h2 className="text-lg font-semibold text-gray-900">Quick search</h2>

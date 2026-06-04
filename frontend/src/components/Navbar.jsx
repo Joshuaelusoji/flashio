@@ -6,7 +6,7 @@ import { updateRiderLocation } from "../services/api";
 export default function Navbar() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const [locationLabel, setLocationLabel] = useState("Choose your location");
+  const [locationLabel, setLocationLabel] = useState("Set location");
   const [locationLoading, setLocationLoading] = useState(true);
   const [showLocationPicker, setShowLocationPicker] = useState(false);
   const [manualLocation, setManualLocation] = useState("");
@@ -19,7 +19,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (typeof navigator === "undefined" || !navigator.geolocation) {
-      setLocationLabel(user?.address || "Location unavailable");
+      setLocationLabel(user?.address || "Set location");
       setLocationLoading(false);
       return;
     }

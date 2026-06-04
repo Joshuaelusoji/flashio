@@ -109,6 +109,35 @@ export async function logoutUser() {
 }
 
 /* =========================
+   UPDATE RIDER LOCATION
+   Sends live GPS coordinates to the backend,
+   where PostGIS stores the rider point.
+========================= */
+export async function updateRiderLocation(latitude, longitude) {
+  try {
+    const res = await fetch(`${BASE_API_URL}/riders/location`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ latitude, longitude }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Location update failed");
+    }
+
+    return { success: true, data };
+  } catch (error) {
+    console.error("UPDATE RIDER LOCATION ERROR:", error);
+    return { success: false, message: error.message };
+  }
+}
+
+/* =========================
    GET RIDER ORDERS
 ========================= */
 export async function getRiderOrders() {

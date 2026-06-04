@@ -62,7 +62,7 @@ export default function Navbar() {
         }
       },
       () => {
-        setLocationLabel(user?.address || "Location unavailable");
+        setLocationLabel(user?.address || "Set location");
         setLocationLoading(false);
       },
       { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }

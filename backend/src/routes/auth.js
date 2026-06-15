@@ -101,7 +101,7 @@ router.get("/verify-email", async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: "This verification link is invalid or has already been used." });
+      return res.status(404).json({ message: "Invalid or used link." });
     }
 
     if (user.verified) {
@@ -109,7 +109,7 @@ router.get("/verify-email", async (req, res) => {
     }
 
     if (new Date() > new Date(user.emailTokenExpiry)) {
-      return res.status(410).json({ message: "This verification link has expired." });
+      return res.status(410).json({ message: "Verification link expired." });
     }
 
     user.verified = true;

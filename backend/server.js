@@ -15,7 +15,6 @@ import "./src/models/Rider.js";
 import "./src/models/RiderStatus.js";
 import "./src/models/Payment.js";
 import "./src/models/associations.js";
-import "./src/models/Restaurant.js";
 import "./src/models/FeaturedMeal.js";
 import "./src/models/Drink.js";
 

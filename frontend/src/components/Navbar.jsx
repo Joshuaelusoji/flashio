@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { updateRiderLocation } from "../services/api";
@@ -8,9 +9,9 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const [locationLabel, setLocationLabel] = useState("Set location");
   const [locationLoading, setLocationLoading] = useState(true);
-  const [showLocationPicker, setShowLocationPicker] = useState(false);
-  const [manualLocation, setManualLocation] = useState("");
   const [pickerBusy, setPickerBusy] = useState(false);
+  const [manualLocation, setManualLocation] = useState("");
+  const [showLocationInput, setShowLocationInput] = useState(false);
 
   const handleLogout = async () => {
     await logout();
@@ -71,7 +72,9 @@ export default function Navbar() {
     return () => navigator.geolocation.clearWatch(watchId);
   }, [user]);
 
-  const useCurrentLocation = () => {
+  const handleLocationClick = () => {
+    setShowLocationInput(true);
+
     if (typeof navigator === "undefined" || !navigator.geolocation) {
       alert("Geolocation is not supported in this browser.");
       return;
@@ -105,17 +108,16 @@ export default function Navbar() {
             "Current location";
 
           setLocationLabel(area);
-          setShowLocationPicker(false);
         } catch (error) {
           console.error("Current location update failed:", error);
-          alert("We could not update your current location right now.");
+          alert("We could not detect your current location right now.");
         } finally {
           setPickerBusy(false);
         }
       },
       () => {
-        alert("Please allow location access so we can use your real delivery area.");
         setPickerBusy(false);
+        alert("Please allow location access so we can detect your area.");
       },
       { enableHighAccuracy: true, timeout: 12000 }
     );
@@ -123,14 +125,14 @@ export default function Navbar() {
 
   const searchManualLocation = async () => {
     if (!manualLocation.trim()) {
-      alert("Enter the area or address you want to use.");
+      alert("Enter an address or area to use.");
       return;
     }
 
     setPickerBusy(true);
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(manualLocation)}`
+        `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(manualLocation)}`
       );
 
       if (!response.ok) {
@@ -145,7 +147,6 @@ export default function Navbar() {
       }
 
       setLocationLabel(result.display_name);
-      setShowLocationPicker(false);
       setManualLocation("");
     } catch (error) {
       console.error("Manual location search failed:", error);
@@ -158,26 +159,27 @@ export default function Navbar() {
   return (
     <nav className="sticky w-full top-0 z-[100] bg-[#605c5c] px-5 py-4 shadow-sm">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
-        <div className="relative flex items-center gap-3 text-white min-w-0">
+        <div className="relative flex flex-1 items-center gap-3 text-white min-w-0">
           <button
             type="button"
-            onClick={() => setShowLocationPicker((prev) => !prev)}
-            className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 text-left text-sm font-semibold text-white hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-amber-300"
+            onClick={handleLocationClick}
+            disabled={pickerBusy}
+            aria-label="Detect current location"
+            title="Detect current location"
+            className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-amber-300"
           >
-            <span className="text-base">📍</span>
-            <span className="truncate max-w-[220px] sm:max-w-[320px]">
-              {locationLoading ? "Detecting location..." : locationLabel}
-            </span>
+            <MapPin size={18} />
           </button>
 
-          {showLocationPicker && (
-            <div className="absolute left-0 top-full mt-2 w-[320px] rounded-2xl border border-white/10 bg-[#4f4a4a] p-3 text-sm text-white shadow-xl z-[110]">
-              <p className="mb-2 text-[11px] uppercase tracking-[0.18em] text-amber-200">Choose delivery area</p>
+          {showLocationInput && (
+            <div className="absolute left-0 top-full mt-3 w-[320px] rounded-2xl border border-white/10 bg-[#4f4a4a] p-3 text-sm text-white shadow-xl z-[110]">
+              <p className="mb-2 text-[11px] uppercase tracking-[0.18em] text-amber-200">Manual location</p>
               <input
                 type="text"
                 value={manualLocation}
                 onChange={(e) => setManualLocation(e.target.value)}
-                placeholder="Type an address or area"
+                onKeyDown={(e) => e.key === "Enter" && searchManualLocation()}
+                placeholder="Enter your address or area"
                 className="w-full rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-white placeholder:text-white/60 outline-none focus:border-amber-300"
               />
               <div className="mt-3 flex gap-2">
@@ -187,15 +189,14 @@ export default function Navbar() {
                   disabled={pickerBusy}
                   className="flex-1 rounded-xl bg-amber-400 px-3 py-2 font-semibold text-[#4f4a4a] disabled:opacity-60"
                 >
-                  {pickerBusy ? "Searching..." : "Use this location"}
+                  {pickerBusy ? "Working..." : "Use this location"}
                 </button>
                 <button
                   type="button"
-                  onClick={useCurrentLocation}
-                  disabled={pickerBusy}
-                  className="rounded-xl border border-white/20 bg-white/10 px-3 py-2 font-semibold text-white disabled:opacity-60"
+                  onClick={() => setShowLocationInput(false)}
+                  className="rounded-xl border border-white/20 bg-white/10 px-3 py-2 font-semibold text-white"
                 >
-                  {pickerBusy ? "Working..." : "Use current"}
+                  Close
                 </button>
               </div>
             </div>

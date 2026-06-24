@@ -51,7 +51,7 @@ function Menu() {
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
-  const [restaurants, setRestaurants] = useState([]);
+  const [vendors, setVendors] = useState([]);
   const [featured, setFeatured] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -63,32 +63,32 @@ function Menu() {
 
         if (!baseURL) throw new Error("VITE_API_URL is not defined");
 
-        const [categoriesRes, restaurantsRes, featuredRes, drinksRes] = await Promise.all([
+        const [categoriesRes, vendorsRes, featuredRes, drinksRes] = await Promise.all([
           fetch(`${baseURL}/categories`),
-          fetch(`${baseURL}/restaurants`),
+          fetch(`${baseURL}/vendors`),
           fetch(`${baseURL}/featured-meals`),
           fetch(`${baseURL}/drinks`),
         ]);
 
-        if (!categoriesRes.ok || !restaurantsRes.ok || !featuredRes.ok || !drinksRes.ok) {
+        if (!categoriesRes.ok || !vendorsRes.ok || !featuredRes.ok || !drinksRes.ok) {
           throw new Error("API request failed");
         }
 
-        const [categoriesData, restaurantsData, featuredData, drinksData] = await Promise.all([
+        const [categoriesData, vendorsData, featuredData, drinksData] = await Promise.all([
           categoriesRes.json(),
-          restaurantsRes.json(),
+          vendorsRes.json(),
           featuredRes.json(),
           drinksRes.json(),
         ]);
 
         setCategories(Array.isArray(categoriesData) ? categoriesData : []);
-        setRestaurants(Array.isArray(restaurantsData) ? restaurantsData : []);
+        setVendors(Array.isArray(vendorsData) ? vendorsData : []);
         setFeatured(Array.isArray(featuredData) ? featuredData : []);
         setDrinks(Array.isArray(drinksData) ? drinksData : []);
       } catch (err) {
         console.error("DATA LOAD ERROR:", err);
         setCategories([]);
-        setRestaurants([]);
+        setVendors([]);
         setFeatured([]);
         setDrinks([]);
       } finally {
@@ -121,31 +121,30 @@ function Menu() {
               </button>
             ))}
           </div>
-        
         )}
       </section>
 
-      {/* ================= RESTAURANTS ================= */}
+      {/* ================= VENDORS ================= */}
       <section className="mb-6">
         <h2 className="text-base font-semibold mb-2">Explore Restaurants</h2>
         {loading ? (
           <RestaurantSkeleton />
         ) : (
           <div className="flex gap-3 overflow-x-auto scrollbar-hide py-2">
-            {restaurants.map((res) => (
+            {vendors.map((vendor) => (
               <div
-                key={res.id}
-                onClick={() => navigate(`/category/restaurants/${res.id}`)}
+                key={vendor.id}
+                onClick={() => navigate(`/category/restaurants/${vendor.id}`)}
                 className="pt-1 flex-shrink-0 w-20 text-center cursor-pointer"
               >
                 <img
-                  src={res.image}
-                  alt={res.name}
+                  src={vendor.imageUrl}
+                  alt={vendor.name}
                   loading="lazy"
                   className="w-14 h-14 rounded-full object-cover mx-auto"
                 />
-                <p className="text-xs mt-1 break-words">{res.name}</p>
-                <p className="text-xs text-gray-500">📍 {res.location}</p>
+                <p className="text-xs mt-1 break-words">{vendor.name}</p>
+                <p className="text-xs text-gray-500">📍 {vendor.location}</p>
               </div>
             ))}
           </div>
@@ -201,7 +200,6 @@ function Menu() {
                 />
                 <div className="text-center mt-2">
                   <h3 className="font-semibold text-sm">{item.name}</h3>
-                  <p className="text-xs text-gray-500">📍 {item.location}</p>
                   <p className="text-orange-600 font-bold text-sm mt-1">₦{item.price}</p>
                 </div>
               </div>

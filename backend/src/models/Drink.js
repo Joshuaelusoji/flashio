@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
 
 const Drink = sequelize.define(
-  "Drink",
+  "Drinks",
   {
     id:       { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4, primaryKey: true },
     name:     { type: DataTypes.STRING, allowNull: false },

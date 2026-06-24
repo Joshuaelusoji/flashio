@@ -9,9 +9,6 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
-      vehicle_type: {
-        type: Sequelize.STRING
-      },
       userId: {
         type: Sequelize.UUID,
         allowNull: false,

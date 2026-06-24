@@ -24,7 +24,6 @@ import authRoutes from "./src/routes/auth.js";
 import orderRoutes from "./src/routes/orders.js";
 import paymentRoutes from "./src/routes/payments.js";
 import categoriesRouter from "./src/routes/categories.js";
-import restaurantsRouter from "./src/routes/restaurants.js";
 import featuredMealsRouter from "./src/routes/featuredMeals.js";
 import drinksRouter from "./src/routes/drinks.js";
 import vendorsRouter from "./src/routes/vendors.js";
@@ -70,7 +69,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/categories", categoriesRouter);
-app.use("/api/restaurants", restaurantsRouter);
 app.use("/api/featured-meals", featuredMealsRouter);
 app.use("/api/drinks", drinksRouter);
 app.use("/api/vendors", vendorsRouter);
@@ -108,8 +106,6 @@ app.get("/", (req, res) => {
   try {
     await sequelize.authenticate();
     console.log("Database connected");
-
-    // ❌ IMPORTANT: removed sequelize.sync()
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

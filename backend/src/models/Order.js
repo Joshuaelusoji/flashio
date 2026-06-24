@@ -1,64 +1,53 @@
 // src/models/Order.js
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
-import User from "./User.js";
-import Rider from "./Rider.js";
 
 const Order = sequelize.define(
-  "Order",
+  "Orders",
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-
     status: {
       type: DataTypes.ENUM("PENDING", "IN_PROGRESS", "DELIVERED", "CANCELLED"),
       defaultValue: "PENDING",
       allowNull: false,
     },
-
-    total_amount: {
+    totalAmount: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-
-    userId: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: "Users",
-        key: "id",
-      },
-    },
-
-    riderId: {
-      type: DataTypes.UUID,
-      references: {
-        model: "Riders",
-        key: "id",
-      },
-    },
-
-    deliveryCode: {
+    deliveryAddress: {        // ← added
       type: DataTypes.STRING,
       allowNull: true,
     },
-
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: true,
+    },
+    riderId: {
+      type: DataTypes.UUID,
+      allowNull: true,
+    },
+    deliveryCode: {
+      type: DataTypes.STRING(4),
+      allowNull: true,
+    },
     deliveryCodeUsed: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    isActive: {               // ← was already here
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    paranoid: true,           // ← deletedAt now backed by migration
+  }
 );
-
-// Relationships
-User.hasMany(Order, { foreignKey: "userId", onDelete: "CASCADE" });
-Order.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
-
-Rider.hasMany(Order, { foreignKey: "riderId", onDelete: "SET NULL" });
-Order.belongsTo(Rider, { foreignKey: "riderId", onDelete: "SET NULL" });
 
 export default Order;

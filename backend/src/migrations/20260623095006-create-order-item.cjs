@@ -15,7 +15,7 @@ module.exports = {
         defaultValue: 1
       },
       price: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false
       },
       orderId: {
@@ -47,6 +47,10 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+
+    await queryInterface.addIndex('OrderItems', ['orderId']);            // solo orderId
+    await queryInterface.addIndex('OrderItems', ['productId']);          // solo productId
+    await queryInterface.addIndex('OrderItems', ['orderId', 'productId']); // composite
   },
 
   async down(queryInterface, Sequelize) {

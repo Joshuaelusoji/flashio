@@ -2,10 +2,11 @@ import express from "express";
 import sequelize from "../config/database.js";
 import Order from "../models/Order.js";
 import OrderItem from "../models/OrderItem.js";
+import Product from "../models/Product.js";
 import Rider from "../models/Rider.js";
 import RiderStatus from "../models/RiderStatus.js";
 import authMiddleware from "../middleware/authMiddleware.js";
-import { findNearestRider } from "../helpers/riderLocation.js"; // NEW
+import { findNearestRider } from "../helpers/riderLocation.js";
 
 const router = express.Router();
 
@@ -13,7 +14,7 @@ const generateCode = async () => {
   let code;
   let exists = true;
   while (exists) {
-    code = Math.floor(100000 + Math.random() * 900000).toString();
+    code = Math.floor(1000 + Math.random() * 9000).toString();
     const found = await Order.findOne({ where: { deliveryCode: code } });
     exists = !!found;
   }
@@ -24,17 +25,47 @@ const generateCode = async () => {
    CREATE ORDER — AUTO ASSIGN NEAREST RIDER
 ========================= */
 router.post("/", authMiddleware, async (req, res) => {
-  const { items, total, deliveryAddress, customerLat, customerLng } = req.body;
+  const { items, deliveryAddress, customerLat, customerLng } = req.body;
 
   const transaction = await sequelize.transaction();
 
   try {
     const deliveryCode = await generateCode();
 
+    // Merge duplicate productIds before inserting
+    const mergedItems = Object.values(
+      items.reduce((acc, item) => {
+        if (acc[item.productId]) {
+          acc[item.productId].quantity += item.quantity;
+        } else {
+          acc[item.productId] = { ...item };
+        }
+        return acc;
+      }, {})
+    );
+
+    // Fetch prices from DB and build order items
+    let totalAmount = 0; // ← renamed from total_amount
+    const orderItemsData = [];
+
+    for (let item of mergedItems) {
+      const product = await Product.findByPk(item.productId, { transaction });
+      if (!product) throw new Error(`Product ${item.productId} not found`);
+
+      const itemTotal = product.price * item.quantity;
+      totalAmount += itemTotal; // ← consistent
+
+      orderItemsData.push({
+        productId: item.productId,
+        quantity: item.quantity,
+        price: product.price,
+      });
+    }
+
     const order = await Order.create(
       {
         userId: req.user.id,
-        total_amount: total,
+        totalAmount, // ← now correctly matches variable
         deliveryAddress,
         status: "PENDING",
         deliveryCode,
@@ -43,14 +74,10 @@ router.post("/", authMiddleware, async (req, res) => {
       { transaction }
     );
 
-    for (let item of items) {
+    // Insert order items now that we have order.id
+    for (let itemData of orderItemsData) {
       await OrderItem.create(
-        {
-          orderId: order.id,
-          productId: item.productId,
-          quantity: item.quantity,
-          price: item.price,
-        },
+        { orderId: order.id, ...itemData },
         { transaction }
       );
     }
@@ -64,7 +91,6 @@ router.post("/", authMiddleware, async (req, res) => {
         order.riderId = nearest.riderId;
         await order.save({ transaction });
 
-        // Lock rider as unavailable
         await RiderStatus.update(
           { is_available: false, current_order_id: order.id },
           { where: { riderId: nearest.riderId }, transaction }
@@ -79,7 +105,7 @@ router.post("/", authMiddleware, async (req, res) => {
     return res.status(201).json({
       order,
       deliveryCode,
-      assignedRider, // null if no rider was nearby
+      assignedRider,
     });
 
   } catch (err) {
@@ -89,5 +115,4 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
-// ... rest of your routes stay exactly the same
 export default router;

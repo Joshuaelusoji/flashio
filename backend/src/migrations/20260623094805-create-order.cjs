@@ -13,9 +13,13 @@ module.exports = {
         type: Sequelize.ENUM('PENDING', 'IN_PROGRESS', 'DELIVERED', 'CANCELLED'),
         defaultValue: 'PENDING'
       },
-      total_amount: {
-        type: Sequelize.FLOAT,
+      totalAmount: {
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false
+      },
+      deliveryAddress: {        // ← added
+        type: Sequelize.STRING,
+        allowNull: true
       },
       userId: {
         type: Sequelize.UUID,
@@ -29,6 +33,7 @@ module.exports = {
       },
       riderId: {
         type: Sequelize.UUID,
+        allowNull: true,
         references: {
           model: 'Riders',
           key: 'id'
@@ -37,12 +42,16 @@ module.exports = {
         onUpdate: 'CASCADE'
       },
       deliveryCode: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(4),
         allowNull: true
       },
       deliveryCodeUsed: {
         type: Sequelize.BOOLEAN,
         defaultValue: false
+      },
+      isActive: {               // ← added
+        type: Sequelize.BOOLEAN,
+        defaultValue: true
       },
       createdAt: {
         allowNull: false,
@@ -51,8 +60,17 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      deletedAt: {              // ← added for paranoid: true
+        type: Sequelize.DATE,
+        allowNull: true
       }
     });
+
+    await queryInterface.addIndex('Orders', ['userId']);            // solo userId
+    await queryInterface.addIndex('Orders', ['userId', 'status']);  // composite
+    await queryInterface.addIndex('Orders', ['riderId']);            // solo riderId
+    await queryInterface.addIndex('Orders', ['riderId', 'status']);  // composite
   },
 
   async down(queryInterface, Sequelize) {

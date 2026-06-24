@@ -10,15 +10,15 @@ module.exports = {
         primaryKey: true
       },
       firstName: {
-        type: Sequelize.STRING(25),
+        type: Sequelize.STRING(50),
         allowNull: false
       },
       lastName: {
-        type: Sequelize.STRING(25),
+        type: Sequelize.STRING(50),
         allowNull: false
       },
       email: {
-        type: Sequelize.STRING(35),
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true
       },
@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      is_active: {
+      isActive: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
       },

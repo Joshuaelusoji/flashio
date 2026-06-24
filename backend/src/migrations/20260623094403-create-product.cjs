@@ -3,24 +3,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('RiderStatuses', {
+    await queryInterface.createTable('Products', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
-      is_available: {
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      description: {
+        type: Sequelize.STRING(100)
+      },
+      price: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false
+      },
+      isAvailable: {
         type: Sequelize.BOOLEAN,
         defaultValue: true
       },
-      current_order_id: {
-        type: Sequelize.UUID
+      imageUrl: {
+        type: Sequelize.STRING
       },
-      riderId: {
+      vendorId: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'Riders',
+          model: 'Vendors',
           key: 'id'
         },
         onDelete: 'CASCADE',
@@ -35,9 +46,12 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+
+    await queryInterface.addIndex('Products', ['vendorId']);
+    await queryInterface.addIndex('Products', ['vendorId', 'isAvailable']);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('RiderStatuses');
+    await queryInterface.dropTable('Products');
   }
 };

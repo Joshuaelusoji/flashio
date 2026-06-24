@@ -10,7 +10,6 @@ module.exports = {
         primaryKey: true,
         allowNull: false,
       },
-
       categoryId: {
         type: Sequelize.UUID,
         allowNull: true,
@@ -21,62 +20,55 @@ module.exports = {
         onDelete: "SET NULL",
         onUpdate: "CASCADE",
       },
-
       name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
+      path: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       description: {
         type: Sequelize.TEXT,
       },
-
       location: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
       imageUrl: {
         type: Sequelize.STRING,
       },
-
       rating: {
-        type: Sequelize.DECIMAL(3, 2),
+        type: Sequelize.DECIMAL(2, 2),
         defaultValue: 0.0,
       },
-
       deliveryTime: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
       deliveryFee: {
         type: Sequelize.DECIMAL(10, 2),
         allowNull: false,
       },
-
       isActive: {
         type: Sequelize.BOOLEAN,
         defaultValue: true,
       },
-
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
       },
     });
 
-    // Performance indexes
-    await queryInterface.addIndex("Vendors", ["categoryId"]);
-    await queryInterface.addIndex("Vendors", ["isActive"]);
+    await queryInterface.addIndex("Vendors", ["categoryId"]);            // solo categoryId
+    await queryInterface.addIndex("Vendors", ["categoryId", "isActive"]); // composite
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.dropTable("Vendors");
   }
 };

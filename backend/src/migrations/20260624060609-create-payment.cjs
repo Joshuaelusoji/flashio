@@ -4,10 +4,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
 
-    // Drop the old Payment table first since this is a replacement
-    await queryInterface.dropTable('Payment', { force: true }).catch(() => {});
-    await queryInterface.dropTable('Payments', { force: true }).catch(() => {});
-
     await queryInterface.createTable('Payments', {
       id: {
         type: Sequelize.UUID,
@@ -73,8 +69,8 @@ module.exports = {
     });
 
     await queryInterface.addIndex('Payments', ['orderId']);
+    await queryInterface.addIndex('Payments', ['orderId', 'status']);
     await queryInterface.addIndex('Payments', ['status']);
-    await queryInterface.addIndex('Payments', ['paystackReference']);
   },
 
   async down(queryInterface) {

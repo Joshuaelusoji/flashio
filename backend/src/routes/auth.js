@@ -55,8 +55,7 @@ router.post("/register", async (req, res) => {
       emailTokenExpiry,
     });
 
-    const verificationLink =
-      `${process.env.FRONTEND_URL}/verify-email?token=${rawToken}`;
+    const verificationLink = `${process.env.FRONTEND_URL}/verify-email?token=${rawToken}`;
 
     await sendEmail({
       to: user.email,
@@ -139,9 +138,8 @@ router.post("/login", async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({
+    const user = await User.unscoped().findOne({
       where: { email: email.toLowerCase() },
-      attributes: { include: ["passwordHash"] },
     });
 
     if (!user) {
@@ -164,15 +162,9 @@ router.post("/login", async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
-
     return res.json({
       message: "Login successful",
+      token,                  // ← sent in body, saved to localStorage on frontend
       user: {
         id: user.id,
         firstName: user.firstName,
@@ -191,12 +183,10 @@ router.post("/login", async (req, res) => {
 
 /* ============================
    ME
-   Reads the httpOnly cookie,
-   verifies the JWT, and returns
-   the current user from the DB.
 ============================ */
 router.get("/me", async (req, res) => {
-  const token = req.cookies?.token;
+  const authHeader = req.headers.authorization;
+  const token = authHeader?.split(" ")[1]; // expects "Bearer <token>"
 
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });
@@ -225,19 +215,9 @@ router.get("/me", async (req, res) => {
    LOGOUT
 ============================ */
 router.post("/logout", (req, res) => {
-  try {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-    });
-
-    return res.json({ message: "Logged out successfully" });
-
-  } catch (err) {
-    console.error("LOGOUT ERROR:", err);
-    return res.status(500).json({ message: "Something went wrong" });
-  }
+  // With localStorage, logout is handled entirely on the frontend
+  // by removing the token. This endpoint is kept for a clean API.
+  return res.json({ message: "Logged out successfully" });
 });
 
 export default router;

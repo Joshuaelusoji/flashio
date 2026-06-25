@@ -54,8 +54,8 @@ export function AuthProvider({ children }) {
     return response; // caller handles redirect / error display
   };
 
-  const logout = async () => {
-    await logoutUser();
+   const logout = async () => {
+    await logoutUser(); // this now removes token from localStorage internally
     setUser(null);
   };
 

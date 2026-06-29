@@ -134,7 +134,7 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
+    return res.status(400).json({ message: "All fields are required for Sign in" });
   }
 
   try {
@@ -143,7 +143,7 @@ router.post("/login", async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User does not exist" });
     }
 
     if (!user.verified) {
@@ -163,7 +163,7 @@ router.post("/login", async (req, res) => {
     );
 
     return res.json({
-      message: "Login successful",
+      message: "Signin successful ✅",
       token,                  // ← sent in body, saved to localStorage on frontend
       user: {
         id: user.id,

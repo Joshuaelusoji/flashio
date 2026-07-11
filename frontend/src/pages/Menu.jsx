@@ -105,7 +105,7 @@ function Menu() {
 
       {/* ================= CATEGORIES ================= */}
       <section className="mb-6">
-        <h2 className="text-base font-bold mb-4">Browse Categories</h2>
+        <h2 className="text-base font-bold mb-4">Shop by Category</h2>
         {loading ? (
           <CategorySkeleton />
         ) : (

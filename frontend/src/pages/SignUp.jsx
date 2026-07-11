@@ -26,7 +26,7 @@ function Signup() {
     else if (!/\S+@\S+\.\S+/.test(form.email)) newErrors.email = "⚠️ Invalid email address.";
     if (!form.phone.trim()) newErrors.phone = "⚠️ Phone number is required.";
     if (!form.password) newErrors.password = "⚠️ Password is required.";
-    else if (form.password.length < 8) newErrors.password = "⚠️ Password must be at least 6 characters.";
+    else if (form.password.length < 8) newErrors.password = "⚠️ Password must be at least 8 characters.";
     return newErrors;
   };
 

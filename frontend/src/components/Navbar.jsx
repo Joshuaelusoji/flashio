@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { MapPin } from "lucide-react";
+import { MapPin, LogOut, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { updateRiderLocation } from "../services/api";
-import { LogOut } from "lucide-react";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -221,18 +220,14 @@ export default function Navbar() {
             </>
           ) : (
             <>
-              <button
-                onClick={() => navigate("/login")}
-                className="bg-transparent border border-amber-400 text-amber-200 text-[13px] font-bold px-4 py-[7px] rounded-[10px] cursor-pointer transition-all hover:bg-amber-400 hover:text-[#605c5c]"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => navigate("/signup")}
-                className="bg-amber-400 border border-amber-400 text-[#605c5c] text-[13px] font-bold px-4 py-[7px] rounded-[10px] cursor-pointer transition-all hover:bg-orange-500 hover:border-orange-500 hover:text-white"
-              >
-                Sign Up
-              </button>
+            <button
+              onClick={() => navigate("/profile")}
+              aria-label="Profile"
+              title="Profile"
+              className="bg-transparent border border-white/30 text-white p-2 rounded-full cursor-pointer transition-all hover:border-amber-300 hover:text-amber-200"
+            >
+              <User size={18} />
+            </button>
             </>
           )}
         </div>

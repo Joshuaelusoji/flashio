@@ -212,9 +212,11 @@ export default function Navbar() {
               </span>
              <button
                 onClick={handleLogout}
-                className="bg-transparent border border-white/30 text-white text-[13px] font-bold px-4 py-[7px] rounded-[10px] cursor-pointer transition-all hover:border-red-400 hover:text-red-200"
+                aria-label="Logout"
+                title="Logout"
+                className="bg-transparent border border-white/30 text-white p-2 rounded-full cursor-pointer transition-all hover:border-red-400 hover:text-red-200"
               >
-                Logout
+                <LogOut size={18} />
               </button>
             </>
           ) : (

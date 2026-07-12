@@ -3,6 +3,7 @@ import { MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { updateRiderLocation } from "../services/api";
+import { LogOut } from "lucide-react";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -209,7 +210,7 @@ export default function Navbar() {
               <span className="hidden sm:inline text-[13px] font-semibold text-white">
                 Hi, <span className="text-amber-300">{user.firstName}</span>
               </span>
-              <button
+             <button
                 onClick={handleLogout}
                 className="bg-transparent border border-white/30 text-white text-[13px] font-bold px-4 py-[7px] rounded-[10px] cursor-pointer transition-all hover:border-red-400 hover:text-red-200"
               >

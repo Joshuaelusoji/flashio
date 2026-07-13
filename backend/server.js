@@ -26,6 +26,7 @@ import categoriesRouter from "./src/routes/categories.js";
 import featuredMealsRouter from "./src/routes/featuredMeals.js";
 import drinksRouter from "./src/routes/drinks.js";
 import vendorsRouter from "./src/routes/vendors.js";
+import profileRouter from "./src/routes/profile.js";
 
 import authMiddleware from "./src/middleware/authMiddleware.js";
 import Product from "./src/models/Product.js";
@@ -71,6 +72,7 @@ app.use("/api/categories", categoriesRouter);
 app.use("/api/featured-meals", featuredMealsRouter);
 app.use("/api/drinks", drinksRouter);
 app.use("/api/vendors", vendorsRouter);
+app.use("/api/profile", profileRouter);
 
 /* =========================
    PRODUCTS

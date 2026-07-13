@@ -198,3 +198,31 @@ export async function initializePayment(orderId, location, paymentMethod) {
     return { success: false, message: error.message };
   }
 }
+
+export async function uploadAvatarPhoto(file) {
+  try {
+    const formData = new FormData();
+    formData.append("photo", file);
+
+    const res = await fetch(`${BASE_API_URL}/profile/avatar/upload`, {
+      method: "POST",
+      headers: { ...authHeaders() },
+      body: formData,
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Upload failed");
+    return { success: true, data };
+  } catch (error) {
+    console.error("UPLOAD AVATAR ERROR:", error);
+    return { success: false, message: error.message };
+  }
+}
+
+export function getAvatarSrc(user) {
+  if (user?.profileImageUrl) {
+    return user.profileImageUrl;
+  }
+  const seed = user?.id || user?.email || "Guest";
+  return `https://api.dicebear.com/9.x/adventurer/svg?seed=${encodeURIComponent(seed)}`;
+}

@@ -68,9 +68,16 @@ export function AuthProvider({ children }) {
     });
   };
 
+  const setProfileImage = (url) => {
+    setUser((prev) => {
+      if (!prev) return prev;
+      return { ...prev, profileImageUrl: url };
+    });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, logout, setPaymentMethod }}
+      value={{ user, loading, login, logout, setPaymentMethod, setProfileImage }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,20 +1,14 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { getAvatarSrc } from "../services/api";
 import PageHeader from "../components/PageHeader";
+import AvatarUpload from "../components/AvatarUpload";
 
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, setProfileImage } = useAuth();
   const fullName = user?.firstName
     ? `${user.firstName}${user.lastName ? ` ${user.lastName}` : ""}`
     : user?.name || "Your Profile";
-
-  const initials = fullName
-    .split(" ")
-    .filter(Boolean)
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
 
   return (
     <div className="min-h-screen bg-gray-100 pb-24">
@@ -25,16 +19,16 @@ export default function Profile() {
         />
 
         <div className="bg-white rounded-3xl shadow-sm p-8 text-center">
-          <div className="mx-auto w-28 h-28 rounded-full bg-orange-100 flex items-center justify-center text-4xl font-bold text-orange-600 overflow-hidden">
-            {user?.profileImage ? (
-              <img
-                src={user.profileImage}
-                alt={fullName}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              initials || "U"
-            )}
+          <div className="mx-auto w-28 h-28 rounded-full bg-orange-100 overflow-hidden">
+            <img
+              src={getAvatarSrc(user)}
+              alt={fullName}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="mt-4">
+            <AvatarUpload onUploaded={setProfileImage} />
           </div>
 
           <h1 className="mt-5 text-2xl font-semibold text-gray-900">

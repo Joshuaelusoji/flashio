@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { getAvatarSrc } from "../services/api";
 import PageHeader from "../components/PageHeader";
 import AvatarUpload from "../components/AvatarUpload";
 
@@ -19,17 +18,7 @@ export default function Profile() {
         />
 
         <div className="bg-white rounded-3xl shadow-sm p-8 text-center">
-          <div className="mx-auto w-28 h-28 rounded-full bg-orange-100 overflow-hidden">
-            <img
-              src={getAvatarSrc(user)}
-              alt={fullName}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="mt-4">
-            <AvatarUpload onUploaded={setProfileImage} />
-          </div>
+          <AvatarUpload user={user} onUploaded={setProfileImage} />
 
           <h1 className="mt-5 text-2xl font-semibold text-gray-900">
             {fullName}

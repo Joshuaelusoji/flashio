@@ -10,7 +10,7 @@ module.exports = {
         name: 'Send an Errand',
         icon: '📦',
         slug: 'send-an-errand',
-        color: 'bg-indigo-300',
+        color: 'bg-red-300',
         textColor: 'text-violet-500',
         createdAt: new Date(),
         updatedAt: new Date(),

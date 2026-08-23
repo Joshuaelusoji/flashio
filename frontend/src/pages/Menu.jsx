@@ -115,9 +115,13 @@ function Menu() {
                 key={cat.id}
                 onClick={() => navigate(`/category/${cat.slug}`)}
                 className={`flex flex-col gap-1 py-3 p-3 rounded-md shadow-lg hover:shadow-md transition ${cat.color} ${cat.textColor} text-left`}
+                style={
+                  cat.slug === "send-an-errand"
+                    ? { backgroundColor: "red" }
+                    : undefined
+                }
               >
-                <p className="text-xs max-w-fit">{cat.icon}</p>
-                <p className="text-xs font-medium -tracking-wide max-w-fit">{cat.name}</p>
+                
               </button>
             ))}
           </div>

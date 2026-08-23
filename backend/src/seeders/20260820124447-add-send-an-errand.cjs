@@ -7,7 +7,7 @@ module.exports = {
     await queryInterface.bulkInsert('Categories', [
       {
         id: SEND_AN_ERRAND_ID,
-        name: 'Senxxxd an Errand',
+        name: 'Send an Errand',
         icon: '📦',
         slug: 'send-an-errand',
         color: 'bg-red-300',

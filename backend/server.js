@@ -41,6 +41,7 @@ const PORT = process.env.PORT || 5000;
 ========================= */
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://192.168.43.206:5173",
   process.env.FRONTEND_URL,
 ];
 
@@ -108,7 +109,7 @@ app.get("/", (req, res) => {
     await sequelize.authenticate();
     console.log("Database connected");
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (err) {

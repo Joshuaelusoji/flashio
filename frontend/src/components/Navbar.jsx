@@ -157,7 +157,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-[100] bg-amber-500 p-1 shadow-sm">
+    <nav className="sticky top-0 px-3 z-[100] bg-black p-1 shadow-sm">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
         <div className="relative flex flex-1 items-center gap-3 text-black min-w-0">
           <button

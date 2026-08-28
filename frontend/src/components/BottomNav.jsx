@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { Home, Search, ClipboardList, Phone, UserCircle } from "lucide-react";
+import { BinocularsIcon } from "../assets/icons/icon";
 
 const navItems = [
   { label: "Home",    icon: Home,          to: "/menu" },
-  { label: "Search",  icon: Search,        to: "/search" },
+  { label: "Search",  icon: BinocularsIcon,        to: "/search" },
   { label: "Orders",  icon: ClipboardList, to: "/orders" },
   { label: "Contact", icon: Phone,         to: "/contact" },
   { label: "Profile", icon: UserCircle,    to: "/profile" },
@@ -14,7 +15,7 @@ export default function BottomNav() {
   const { cartCount } = useCart();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 p-1 rounded-full bg-amber-500 flex items-center justify-around z-[900] shadow-[0_-4px_20px_rgba(0,0,0,0.07)]">
+    <nav className="fixed bottom-1 left-0 right-0 mx-4 p-1 rounded-full bg-white border-2 border-double border-x-lime-500 flex items-center justify-around z-[900] shadow-[0_-4px_20px_rgba(0,0,0,0.07)]">
       {navItems.map(({ label, icon: Icon, to }) => (
         <NavLink
           key={to}

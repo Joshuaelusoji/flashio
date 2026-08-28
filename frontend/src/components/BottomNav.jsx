@@ -14,106 +14,33 @@ export default function BottomNav() {
   const { cartCount } = useCart();
 
   return (
-    <>
-      <style>{`
-        .bn-bar {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          height: 64px;
-          background: #ffffff;
-          border-top: 1px solid #f3f4f6;
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
-          z-index: 900;
-          box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07);
-        }
-
-        .bn-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 3px;
-          flex: 1;
-          height: 100%;
-          text-decoration: none;
-          color: #9ca3af;
-          transition: color 0.2s;
-          position: relative;
-        }
-
-        .bn-item:hover {
-          color: #f59e0b;
-        }
-
-        .bn-item.active {
-          color: #ea580c;
-        }
-
-        .bn-item.active .bn-icon-wrap::after {
-          content: "";
-          position: absolute;
-          bottom: -2px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: #ea580c;
-        }
-
-        .bn-icon-wrap {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .bn-badge {
-          position: absolute;
-          top: -6px;
-          right: -10px;
-          min-width: 18px;
-          height: 18px;
-          border-radius: 999px;
-          background: #f97316;
-          color: white;
-          font-size: 10px;
-          font-weight: 700;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 5px;
-        }
-
-        .bn-label {
-          font-size: 10px;
-          font-weight: 600;
-          letter-spacing: 0.02em;
-          font-family: "Nunito", sans-serif;
-        }
-      `}</style>
-
-      <nav className="bn-bar">
-        {navItems.map(({ label, icon: Icon, to }) => (
-          <NavLink
-            key={to}
-            to={to}
-            className={({ isActive }) => `bn-item${isActive ? " active" : ""}`}
-          >
-            <span className="bn-icon-wrap">
-              <Icon size={22} strokeWidth={1.8} />
-              {label === "Orders" && cartCount > 0 && (
-                <span className="bn-badge">{cartCount}</span>
-              )}
-            </span>
-            <span className="bn-label">{label}</span>
-          </NavLink>
-        ))}
-      </nav>
-    </>
+    <nav className="fixed bottom-0 left-0 right-0 p-1 rounded-full bg-amber-500 flex items-center justify-around z-[900] shadow-[0_-4px_20px_rgba(0,0,0,0.07)]">
+      {navItems.map(({ label, icon: Icon, to }) => (
+        <NavLink
+          key={to}
+          to={to}
+          className="flex flex-col items-center justify-center gap-[1px] flex-1 h-full text-black font-bold no-underline relative transition-colors"
+        >
+          {({ isActive }) => (
+            <>
+              <span className="relative flex items-center justify-center">
+                <Icon size={22} strokeWidth={1.8} />
+                {label === "Orders" && cartCount > 0 && (
+                  <span className="absolute -top-1.5 -right-2.5 min-w-[18px] h-[18px] rounded-full bg-orange-500 text-white text-[10px] font-bold flex items-center justify-center px-[5px]">
+                    {cartCount}
+                  </span>
+                )}
+                {isActive && (
+                  <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white" />
+                )}
+              </span>
+              <span className="text-[10px] font-semibold tracking-wide font-nunito">
+                {label}
+              </span>
+            </>
+          )}
+        </NavLink>
+      ))}
+    </nav>
   );
 }

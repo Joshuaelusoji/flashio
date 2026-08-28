@@ -157,22 +157,22 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky w-full top-0 z-[100] bg-[#605c5c] px-5 py-4 shadow-sm">
+    <nav className="sticky top-0 z-[100] bg-amber-500 p-1 shadow-sm">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
-        <div className="relative flex flex-1 items-center gap-3 text-white min-w-0">
+        <div className="relative flex flex-1 items-center gap-3 text-black min-w-0">
           <button
             type="button"
             onClick={handleLocationClick}
             disabled={pickerBusy}
             aria-label="Detect current location"
             title="Detect current location"
-            className="rounded-full bg-white/10 p-2 text-white transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-amber-300"
+            className="rounded-full bg-white/40 p-2 text-gray-500 transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-amber-300"
           >
             <MapPin size={18} />
           </button>
 
           {showLocationInput && (
-            <div className="absolute left-0 top-full mt-3 w-[320px] rounded-2xl border border-white/10 bg-[#4f4a4a] p-3 text-sm text-white shadow-xl z-[110]">
+            <div className="absolute left-0 top-full mt-3 w-[320px] rounded-2xl border border-white/10 bg-[#4f4a4a] p-3 text-sm text-gray-500 shadow-xl z-[110]">
               <p className="mb-2 text-[11px] uppercase tracking-[0.18em] text-amber-200">Manual location</p>
               <input
                 type="text"
@@ -180,7 +180,7 @@ export default function Navbar() {
                 onChange={(e) => setManualLocation(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && searchManualLocation()}
                 placeholder="Enter your address or area"
-                className="w-full rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-white placeholder:text-white/60 outline-none focus:border-amber-300"
+                className="w-full rounded-xl border border-white/10 bg-white/10 px-3 py-2 text-gay-500 placeholder:text-white/60 outline-none focus:border-amber-300"
               />
               <div className="mt-3 flex gap-2">
                 <button
@@ -194,7 +194,7 @@ export default function Navbar() {
                 <button
                   type="button"
                   onClick={() => setShowLocationInput(false)}
-                  className="rounded-xl border border-white/20 bg-white/10 px-3 py-2 font-semibold text-white"
+                  className="rounded-xl border border-white/20 bg-white/10 px-3 py-2 font-semibold text-gray-500"
                 >
                   Close
                 </button>
@@ -206,7 +206,7 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              <span className="hidden sm:inline text-[13px] font-semibold text-white">
+              <span className="hidden sm:inline text-[13px] font-semibold text-gray-500">
                 Hi, <span className="text-amber-300">{user.firstName}</span>
               </span>
              <button
@@ -226,7 +226,7 @@ export default function Navbar() {
               title="Profile"
               className="bg-transparent border border-white/30 text-white p-2 rounded-full cursor-pointer transition-all hover:border-amber-300 hover:text-amber-200"
             >
-              <User size={18} />
+              <User className="text-gray-500" size={18} />
             </button>
             </>
           )}

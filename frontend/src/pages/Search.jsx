@@ -99,10 +99,10 @@ export default function Search() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-24">
+    <div className="min-h-screen bg-black pb-24">
       <div className="max-w-xl mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold text-gray-900">Search</h1>
+          <h1 className="text-2xl text-whitetext-2xl text-white w-fit tracking-normal font-bold mb-10 border-b-4 pb-1i border-b-orange-400 rounded-br-xl">Search</h1>
           <p className="mt-2 text-sm text-gray-500">
             Search restaurants, foods, drinks, and services across Flashio.
           </p>

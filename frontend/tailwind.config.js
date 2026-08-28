@@ -3,12 +3,21 @@ export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
 
   safelist: [
-    "bg-red-300",
-    "text-violet-500",
+    "bg-rose-100",
+    "text-rose-800",
+    "bg-cyan-100",
+    "text-cyan-800",
+    "bg-amber-100",
+    "text-amber-800"
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      fontFamily : {
+        Manrope : ["Manrope", "sans serif" ]
+
+      }
+    },
   },
 
   plugins: [

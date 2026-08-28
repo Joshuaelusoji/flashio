@@ -46,7 +46,7 @@ export default function UserOrders() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 pb-24">
+    <div className="min-h-screen bg-black pb-24">
       <div className="max-w-xl mx-auto px-4 py-8">
         <PageHeader
           title="Orders"

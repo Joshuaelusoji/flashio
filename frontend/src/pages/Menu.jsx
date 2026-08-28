@@ -100,12 +100,12 @@ function Menu() {
   }, []);
 
   return (
-    <div className="p-3 bg-gray-200 min-h-screen">
-      <h1 className="text-2xl font-bold mt-12 mb-6">Menu</h1>
+    <div className="p-3 font-Manrope min-h-screen">
+      <h1 className="text-2xl text-white w-fit tracking-normal font-bold mb-10 border-b-4 pb-1i border-b-orange-400 rounded-br-xl">Menu</h1>
 
       {/* ================= CATEGORIES ================= */}
-      <section className="mb-6">
-        <h2 className="text-base font-bold mb-4">Shop by Category</h2>
+      <section className="mb-9">
+        <h2 className="text-base text-orange-400 tracking-wide font-bold mb-1 shadow-2xl">Shop by Category</h2>
         {loading ? (
           <CategorySkeleton />
         ) : (
@@ -114,10 +114,10 @@ function Menu() {
               <button
                 key={cat.id}
                 onClick={() => navigate(`/category/${cat.slug}`)}
-                className={`flex flex-col gap-1 py-3 p-3 rounded-md shadow-lg hover:shadow-md transition ${cat.color} ${cat.textColor} text-left`}
+                className={` gap-1 py-3 pl-2 rounded-md shadow-inner shadow-slate-500 hover:shadow-md transition ${cat.color} ${cat.textColor}`}
               >
-                <p className="text-xs max-w-fit">{cat.icon}</p>
-                <p className="text-xs font-medium -tracking-wide max-w-fit">{cat.name}</p>
+                <p className="text-xl max-w-fit">{cat.icon}</p>
+                <p className="text-xs font-bold -tracking-wide max-w-fit">{cat.name}</p>
               </button>
             ))}
           </div>
@@ -125,8 +125,8 @@ function Menu() {
       </section>
 
       {/* ================= VENDORS ================= */}
-      <section className="mb-6">
-        <h2 className="text-base font-semibold mb-2">Explore Restaurants</h2>
+      <section className="mb-9">
+        <h2 className="text-base text-orange-400 tracking-wide font-semibold mb-1">Explore Restaurants</h2>
         {loading ? (
           <RestaurantSkeleton />
         ) : (
@@ -143,8 +143,8 @@ function Menu() {
                   loading="lazy"
                   className="w-14 h-14 rounded-full object-cover mx-auto"
                 />
-                <p className="text-xs mt-1 break-words">{vendor.name}</p>
-                <p className="text-xs text-gray-500">📍 {vendor.location}</p>
+                <p className="text-xs text-white mt-1 break-words">{vendor.name}</p>
+                <p className="text-xs text-gray-500">{vendor.location}</p>
               </div>
             ))}
           </div>
@@ -153,15 +153,15 @@ function Menu() {
 
       {/* ================= FEATURED ================= */}
       <section className="mb-6">
-        <h2 className="text-base font-semibold mb-2">Featured Meals</h2>
+        <h2 className="text-base text-orange-400 tracking-wide font-semibold mb-2">Featured Meals</h2>
         {loading ? (
           <FeaturedSkeleton />
         ) : (
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide pt-2 pb-2">
+          <div className="flex gap-2 overflow-x-auto rounded-md scrollbar-hide p-1">
             {featured.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 h-32 w-32 bg-black rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
+                className="flex-shrink-0 h-32 w-32 bg-stone-500 rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
               >
                 <img
                   src={item.image}
@@ -182,7 +182,7 @@ function Menu() {
 
       {/* ================= DRINKS ================= */}
       <section className="mb-6">
-        <h2 className="text-base font-semibold mb-2">Drinks</h2>
+        <h2 className="text-base text-orange-400 font-semibold mb-2">Drinks</h2>
         {loading ? (
           <DrinkSkeleton />
         ) : (

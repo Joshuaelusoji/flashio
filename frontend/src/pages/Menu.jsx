@@ -103,7 +103,7 @@ function Menu() {
     <div className="p-3 font-Manrope min-h-screen">
       <div className="w-16 mb-10">
         <h1 className="text-2xl text-black w-fit tracking-normal font-bold pb-1 border-b-black ">Menu</h1>
-        <div className="border-b-1 border-lime-500 w-100% rounded-xl rounded-br-full"></div>
+        <div className="border-b-2 border-orange-500 w-100% rounded-xl rounded-br-full"></div>
       </div>
       
 
@@ -165,7 +165,7 @@ function Menu() {
             {featured.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 h-32 w-32 bg-black rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
+                className="flex-shrink-0 h-32 w-32 bg-black shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
               >
                 <img
                   src={item.image}

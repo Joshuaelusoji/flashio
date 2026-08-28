@@ -157,7 +157,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 px-3 z-[100] bg-black p-1 shadow-sm">
+    <nav className="sticky top-0 px-3 z-[100] bg-white border-b-4 p-1 shadow-lg">
       <div className="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
         <div className="relative flex flex-1 items-center gap-3 text-black min-w-0">
           <button
@@ -166,7 +166,7 @@ export default function Navbar() {
             disabled={pickerBusy}
             aria-label="Detect current location"
             title="Detect current location"
-            className="rounded-full bg-white/40 p-2 text-gray-500 transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-amber-300"
+            className="rounded-full p-2 text-black transition hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-amber-300"
           >
             <MapPin size={18} />
           </button>
@@ -224,9 +224,9 @@ export default function Navbar() {
               onClick={() => navigate("/profile")}
               aria-label="Profile"
               title="Profile"
-              className="bg-transparent border border-white/30 text-white p-2 rounded-full cursor-pointer transition-all hover:border-amber-300 hover:text-amber-200"
+              className="bg-transparent border border-black text-white p-2 rounded-full cursor-pointer transition-all hover:border-amber-300 hover:text-amber-200"
             >
-              <User className="text-gray-500" size={18} />
+              <User className="text-black" size={18} />
             </button>
             </>
           )}

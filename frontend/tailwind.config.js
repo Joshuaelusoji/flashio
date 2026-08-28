@@ -9,7 +9,8 @@ export default {
     "text-cyan-800",
     "bg-amber-100",
     "text-amber-800",
-    "bg-orange-100"
+    "bg-orange-100",
+    "text-orange-800"
   ],
 
   theme: {

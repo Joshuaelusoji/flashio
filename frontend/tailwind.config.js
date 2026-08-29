@@ -16,7 +16,9 @@ export default {
   theme: {
     extend: {
       fontFamily : {
-        Manrope : ["Manrope", "sans serif" ]
+        Manrope : ["Manrope", "sans serif" ],
+        Inter : ["Inter", "sans serif"],
+        Major_Mono : ["Major Mono Display", "monospace"]
 
       }
     },

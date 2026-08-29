@@ -3,8 +3,8 @@ import { useCart } from "../context/CartContext";
 import { Home, Search, ClipboardList, Phone, UserCircle } from "lucide-react";
 import { BinocularsIcon, FaTags, IoTelescope, HeadsetIcon, IoHomeSharp, UserIcon, FaUser } from "../assets/icons/icon";
 
-const DEFAULT_COLOR = "text-black"
-const PROFILE_COLOR = "text-black"
+const DEFAULT_COLOR = "text-orange-700"
+const PROFILE_COLOR = "text-orange-700"
 
 const navItems = [
   { label: "Home",    icon: IoHomeSharp,          to: "/menu", color: DEFAULT_COLOR },
@@ -18,12 +18,12 @@ export default function BottomNav() {
   const { cartCount } = useCart();
 
   return (
-    <nav className="fixed bottom-1 left-0 right-0 mx-4 py-2 rounded-full shadow-[0_0_5px_hsl(0_0_0_/50%)] bg-white border-1 border-solid border-black flex items-center justify-around z-[900]">
+    <nav className="fixed bottom-1 left-0 right-0 mx-2 py-2 rounded-full shadow-[0_0_5px_hsl(20_50%_50%_/100%)] bg-black flex items-center justify-around z-[900]">
       {navItems.map(({ label, icon: Icon, to, color }) => (
         <NavLink
           key={to}
           to={to}
-          className={`flex flex-col items-center justify-center gap-[1px] flex-1 h-full text-black font-bold no-underline relative transition-colors`}
+          className={`flex flex-col items-center justify-center gap-[1px] flex-1 h-full font-bold no-underline relative transition-colors`}
         >
           {({ isActive }) => (
             <>
@@ -38,7 +38,7 @@ export default function BottomNav() {
                   <span className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-white" />
                 )}
               </span>
-              <span className="text-[10px] font-semibold tracking-wide font-nunito">
+              <span className={`text-[10px] ${DEFAULT_COLOR} font-semibold tracking-wide font-nunito`}>
                 {label}
               </span>
             </>

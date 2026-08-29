@@ -102,18 +102,18 @@ function Menu() {
   return (
     <div className="p-3 font-Manrope min-h-screen">
       <div className="w-16 mb-10">
-        <h1 className="text-2xl text-black w-fit tracking-normal font-bold pb-1 border-b-black ">Menu</h1>
-        <div className="border-b-2 border-orange-500 w-100% rounded-xl rounded-br-full"></div>
+        <h1 className="text-2xl text-black w-fit tracking-normal font-bold pb-1 border-b-4  border-b-orange-400 rounded-br-xl">Menu</h1>
+        {/* <div className="border-b-2 border-orange-500 w-100% rounded-xl rounded-br-full"></div> */}
       </div>
       
 
       {/* ================= CATEGORIES ================= */}
-      <section className="mb-9">
-        <h2 className="text-base text-orange-500 tracking-wide font-bold mb-1">Shop by Category</h2>
+      <section className="mb-6">
+        <h2 className="text-base text-orange-500 tracking-wide font-extrabold mb-1">Shop by Category</h2>
         {loading ? (
           <CategorySkeleton />
         ) : (
-          <div className="grid grid-cols-4 md:grid-cols-4 gap-1">
+          <div className="rounded-md grid grid-cols-4 md:grid-cols-4 gap-1">
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -121,7 +121,7 @@ function Menu() {
                 className={` gap-1 py-3 pl-2 rounded-md shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] hover:shadow-md transition ${cat.color} ${cat.textColor}`}
               >
                 <p className="text-xl max-w-fit">{cat.icon}</p>
-                <p className="text-xs font-bold -tracking-wide max-w-fit">{cat.name}</p>
+                <p className="text-xs font-bold max-w-fit">{cat.name}</p>
               </button>
             ))}
           </div>
@@ -129,8 +129,8 @@ function Menu() {
       </section>
 
       {/* ================= VENDORS ================= */}
-      <section className="mb-9">
-        <h2 className="text-base text-orange-500 tracking-wide font-semibold mb-1">Explore Restaurants</h2>
+      <section className="mb-3">
+        <h2 className="text-base text-orange-500 tracking-wide font-extrabold mb-1">Explore Restaurants</h2>
         {loading ? (
           <RestaurantSkeleton />
         ) : (
@@ -139,16 +139,11 @@ function Menu() {
               <div
                 key={vendor.id}
                 onClick={() => navigate(`/category/restaurants/${vendor.id}`)}
-                className="pt-1 flex-shrink-0 w-20 text-center cursor-pointer"
+                className="bg-red-950 text-[10px] flex flex-col flex-wrap flex-shrink-0 h-32 w-32 shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg  justify-center items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300 pt-1 text-center"
               >
-                <img
-                  src={vendor.imageUrl}
-                  alt={vendor.name}
-                  loading="lazy"
-                  className="w-14 h-14 rounded-full object-cover mx-auto"
-                />
-                <p className="text-xs text-white mt-1 break-words">{vendor.name}</p>
-                <p className="text-xs text-gray-500">{vendor.location}</p>
+                <img src={vendor.imageUrl} alt={vendor.name} loading="lazy" className="w-14 h-14 border-2 border-orange-500 rounded-full object-cover mx-auto"/>
+                <p className=" text-white font-bold mt-1 break-words">{vendor.name}</p>
+                <p className=" text-gray-400 font-normal">{vendor.location}</p>
               </div>
             ))}
           </div>
@@ -157,26 +152,22 @@ function Menu() {
 
       {/* ================= FEATURED ================= */}
       <section className="mb-6">
-        <h2 className="text-base text-orange-500 tracking-wide font-semibold mb-2">Featured Meals</h2>
+        <h2 className="text-base text-orange-500 tracking-wide font-extrabold">Featured Meals</h2>
         {loading ? (
           <FeaturedSkeleton />
         ) : (
-          <div className="flex gap-2 overflow-x-auto rounded-md scrollbar-hide p-1">
+          <div className=" flex gap-2 overflow-x-auto rounded-md scrollbar-hide py-3">
             {featured.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 h-32 w-32 bg-black shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
+                className="flex-shrink-0 h-32 w-32 bg-black shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg  flex flex-wrap justify-center items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
               >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  loading="lazy"
-                  className="h-10 w-10 object-cover rounded-full"
+                <img src={item.image} alt={item.name} loading="lazy" className="h-12 w-12 object-cover rounded-full"
                 />
-                <div className="text-center">
-                  <h3 className="text-xs text-white/90 font-normal">{item.name}</h3>
-                  <p className="text-xs text-white/60">📍 {item.location}</p>
-                  <p className="text-orange-500 text-xs font-bold mt-1">₦{item.price}</p>
+                <div className="text-center text-[10px] w-full">
+                  <h3 className=" text-white/90 font-bold break-words">{item.name}</h3>
+                  <p className=" text-white/60 font-medium">{item.location}</p>
+                  <p className="text-orange-500 text-xs font-bold ">₦{item.price}</p>
                 </div>
               </div>
             ))}
@@ -186,7 +177,7 @@ function Menu() {
 
       {/* ================= DRINKS ================= */}
       <section className="mb-6">
-        <h2 className="text-base text-orange-500 font-semibold mb-2">Drinks</h2>
+        <h2 className="text-base text-orange-500 font-semibold tracking-wide mb-2">Drinks</h2>
         {loading ? (
           <DrinkSkeleton />
         ) : (
@@ -194,7 +185,7 @@ function Menu() {
             {drinks.map((item) => (
               <div
                 key={item.id}
-                className="flex-shrink-0 w-36 bg-white rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
+                className="flex-shrink-0 w-36 bg-red-100 rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
               >
                 <img
                   src={item.image}

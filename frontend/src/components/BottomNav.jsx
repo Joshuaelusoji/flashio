@@ -3,15 +3,14 @@ import { useCart } from "../context/CartContext";
 import { Home, Search, ClipboardList, Phone, UserCircle } from "lucide-react";
 import { BinocularsIcon, FaTags, IoTelescope, HeadsetIcon, IoHomeSharp, UserIcon, FaUser } from "../assets/icons/icon";
 
-const DEFAULT_COLOR = "text-orange-700"
-const PROFILE_COLOR = "text-orange-700"
+const DEFAULT_COLOR = "text-white"
 
 const navItems = [
   { label: "Home",    icon: IoHomeSharp,          to: "/menu", color: DEFAULT_COLOR },
   { label: "Search",  icon: IoTelescope,        to: "/search", color: DEFAULT_COLOR },
-  { label: "Orders",  icon: FaTags, to: "/orders", color: DEFAULT_COLOR },
-  { label: "Hotline", icon: HeadsetIcon,         to: "/contact", color: DEFAULT_COLOR },
-  { label: "Profile", icon: FaUser,    to: "/profile", color: PROFILE_COLOR },
+  { label: "Orders",  icon: FaTags,             to: "/orders", color: DEFAULT_COLOR },
+  { label: "Support", icon: HeadsetIcon,       to: "/contact", color: DEFAULT_COLOR },
+  { label: "Profile", icon: FaUser,            to: "/profile", color: DEFAULT_COLOR }
 ];
 
 export default function BottomNav() {
@@ -28,7 +27,7 @@ export default function BottomNav() {
           {({ isActive }) => (
             <>
               <span className="relative flex items-center justify-center">
-                <Icon size={22} className={`${color}`} weight="fill" strokeWidth={1.8} />
+                <Icon size={20} className={`${color}`} weight="fill" strokeWidth={1.8} />
                 {label === "Orders" && cartCount > 0 && (
                   <span className="absolute -top-1.5 -right-2.5 min-w-[18px] h-[18px] rounded-full bg-orange-500 text-white text-[10px] font-bold flex items-center justify-center px-[5px]">
                     {cartCount}

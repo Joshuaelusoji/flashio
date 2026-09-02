@@ -100,16 +100,16 @@ function Menu() {
   }, []);
 
   return (
-    <div className="p-3 font-Manrope min-h-screen">
+    <div className="p-3 bg-[#F8F8F5] font-Manrope min-h-screen">
       <div className="w-16 mb-10">
-        <h1 className="text-2xl text-black w-fit tracking-normal font-bold pb-1 border-b-4  border-b-orange-400 rounded-br-xl">Menu</h1>
+        <h1 className="text-2xl text-black w-fit tracking-normal font-bold pb-1 rounded-br-xl">Menu</h1>
         {/* <div className="border-b-2 border-orange-500 w-100% rounded-xl rounded-br-full"></div> */}
       </div>
       
 
       {/* ================= CATEGORIES ================= */}
       <section className="mb-6">
-        <h2 className="text-base text-orange-500 tracking-wide font-extrabold mb-1">Shop by Category</h2>
+        <h2 className="text-base text-black tracking-wide font-extrabold mb-1">Shop by Category</h2>
         {loading ? (
           <CategorySkeleton />
         ) : (
@@ -128,22 +128,20 @@ function Menu() {
         )}
       </section>
 
-      {/* ================= VENDORS ================= */}
+      {/* ================= EXPLORE MORE ================= */}
       <section className="mb-3">
-        <h2 className="text-base text-orange-500 tracking-wide font-extrabold mb-1">Explore Restaurants</h2>
+        <h2 className="text-base text-black tracking-wide font-extrabold">Explore More</h2>
         {loading ? (
           <RestaurantSkeleton />
         ) : (
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide py-2">
+          <div className="flex gap-5 overflow-x-auto scrollbar-hide py-2">
             {vendors.map((vendor) => (
-              <div
-                key={vendor.id}
-                onClick={() => navigate(`/category/restaurants/${vendor.id}`)}
-                className="bg-red-950 text-[10px] flex flex-col flex-wrap flex-shrink-0 h-32 w-32 shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg  justify-center items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300 pt-1 text-center"
+              <div key={vendor.id} onClick={() => navigate(`/category/restaurants/${vendor.id}`)}
+                className="px-3 flex flex-col flex-wrap flex-shrink-0 justify-center items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300 text-center"
               >
-                <img src={vendor.imageUrl} alt={vendor.name} loading="lazy" className="w-14 h-14 border-2 border-orange-500 rounded-full object-cover mx-auto"/>
-                <p className=" text-white font-bold mt-1 break-words">{vendor.name}</p>
-                <p className=" text-gray-400 font-normal">{vendor.location}</p>
+                <img src={vendor.imageUrl} alt={vendor.name} loading="lazy" className="w-12 h-12 border-2 border-orange-500 rounded-full object-cover mx-auto"/>
+                <p className="text-[12px] text-black font-bold mt-1 break-words">{vendor.name}</p>
+                <p className="text-[10px] text-gray-500 font-semibold ">{vendor.location}</p>
               </div>
             ))}
           </div>
@@ -152,17 +150,16 @@ function Menu() {
 
       {/* ================= FEATURED ================= */}
       <section className="mb-6">
-        <h2 className="text-base text-orange-500 tracking-wide font-extrabold">Featured Meals</h2>
+        <h2 className="text-base text-black tracking-wide font-extrabold">Featured</h2>
         {loading ? (
           <FeaturedSkeleton />
         ) : (
-          <div className=" flex gap-2 overflow-x-auto rounded-md scrollbar-hide py-3">
+          <div className=" flex gap-2 overflow-x-auto rounded-md scrollbar-hide pt-3">
             {featured.map((item) => (
-              <div
-                key={item.id}
-                className="flex-shrink-0 h-32 w-32 bg-black shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg  flex flex-wrap justify-center items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
+              <div key={item.id} onClick={() => navigate()}
+                className="flex-shrink-0 h-32 w-32 bg-black border-t-2 border-orange-500 shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg flex flex-wrap justify-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
               >
-                <img src={item.image} alt={item.name} loading="lazy" className="h-12 w-12 object-cover rounded-full"
+                <img src={item.image} alt={item.name} loading="lazy" className="mt-2 h-12 w-full object-cover"
                 />
                 <div className="text-center text-[10px] w-full">
                   <h3 className=" text-white/90 font-bold break-words">{item.name}</h3>
@@ -175,9 +172,9 @@ function Menu() {
         )}
       </section>
 
-      {/* ================= DRINKS ================= */}
+      {/* ================= FAVOURITE ================= */}
       <section className="mb-6">
-        <h2 className="text-base text-orange-500 font-semibold tracking-wide mb-2">Drinks</h2>
+        <h2 className="text-base text-black font-bold tracking-wide mb-2">Favorite</h2>
         {loading ? (
           <DrinkSkeleton />
         ) : (

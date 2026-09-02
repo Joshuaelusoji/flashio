@@ -13,6 +13,7 @@ import Menu from "./pages/Menu";
 import Search from "./pages/Search";
 import Contact from "./pages/Contact";
 import RestaurantsDetails from "./pages/RestaurantsDetails";
+import Handpicked from "./pages/Handpicked.jsx";
 import CategoryPage from "./pages/CategoryPage";
 import CategoryItemPage from "./pages/CategoryItemPage.jsx";
 import Profile from "./pages/Profile";
@@ -39,6 +40,7 @@ function App() {
           <Route path="/category/:type" element={<CategoryPage />} />
           <Route path="/category/:type/:id" element={<CategoryItemPage />} />
           <Route path="/restaurants/:slug" element={<RestaurantsDetails />} />
+          <Route path="/handpicked" element={<Handpicked />} />
           <Route path="/search" element={<Search />} />
           <Route path="/orders" element={<UserOrders />} />
           <Route path="/contact" element={<Contact />} />

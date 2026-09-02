@@ -17,7 +17,7 @@ module.exports = {
       {
         id: VENDOR_IDS.indeego,
         path: "indeego-restaurant",
-        name: "Indeego Restaurant",
+        name: "Indeego",
         imageUrl: "/images/restaurants/Indeego.webp",
         location: "Fagbale",
         deliveryTime: "20-30 mins",

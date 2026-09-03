@@ -139,7 +139,7 @@ function Menu() {
               <div key={vendor.id} onClick={() => navigate(`/category/restaurants/${vendor.id}`)}
                 className="px-3 flex flex-col flex-wrap flex-shrink-0 justify-center items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300 text-center"
               >
-                <img src={vendor.imageUrl} alt={vendor.name} loading="lazy" className="w-12 h-12 border-2 border-orange-500 rounded-full object-cover mx-auto"/>
+                <img src={vendor.imageId} alt={vendor.name} loading="lazy" className="w-12 h-12 border-2 border-orange-500 rounded-full object-cover mx-auto"/>
                 <p className="text-[12px] text-black font-bold mt-1 break-words">{vendor.name}</p>
                 <p className="text-[10px] text-gray-500 font-semibold ">{vendor.location}</p>
               </div>
@@ -159,7 +159,7 @@ function Menu() {
               <div key={item.id} onClick={() => navigate()}
                 className="flex-shrink-0 h-32 w-32 bg-black border-t-2 border-orange-500 shadow-[0_4px_5px_hsl(60_5%_80%_/100%)] rounded-lg flex flex-wrap justify-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
               >
-                <img src={item.image} alt={item.name} loading="lazy" className="mt-2 h-12 w-full object-cover"
+                <img src={item.imageId} alt={item.name} loading="lazy" className="mt-2 h-12 w-full object-cover"
                 />
                 <div className="text-center text-[10px] w-full">
                   <h3 className=" text-white/90 font-bold break-words">{item.name}</h3>
@@ -185,7 +185,7 @@ function Menu() {
                 className="flex-shrink-0 w-36 bg-red-100 rounded-lg p-3 flex flex-col items-center cursor-pointer hover:-translate-y-1 hover:scale-105 transition duration-300"
               >
                 <img
-                  src={item.image}
+                  src={item.imageId}
                   alt={item.name}
                   loading="lazy"
                   className="h-16 w-16 object-cover rounded-full"

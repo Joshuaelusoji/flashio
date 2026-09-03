@@ -39,7 +39,7 @@ const Vendor = sequelize.define(
       allowNull: false,
     },
 
-    imageUrl: {
+    imageId: {
       type: DataTypes.STRING,
     },
 

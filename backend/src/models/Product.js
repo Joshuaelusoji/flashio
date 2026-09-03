@@ -44,7 +44,7 @@ const Product = sequelize.define(
       defaultValue: true,
     },
 
-    imageUrl: {
+    imageId: {
       type: DataTypes.STRING,
     },
   },

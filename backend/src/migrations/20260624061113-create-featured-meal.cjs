@@ -8,7 +8,7 @@ module.exports = {
       name:      { type: Sequelize.STRING, allowNull: false },
       price:     { type: Sequelize.INTEGER, allowNull: false },
       location:  { type: Sequelize.STRING, allowNull: false },
-      image:     { type: Sequelize.STRING, allowNull: false },
+      imageId:     { type: Sequelize.STRING, allowNull: false },
       createdAt: { type: Sequelize.DATE, allowNull: false },
       updatedAt: { type: Sequelize.DATE, allowNull: false },
     });

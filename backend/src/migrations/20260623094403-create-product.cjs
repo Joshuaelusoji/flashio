@@ -24,8 +24,9 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         defaultValue: true
       },
-      imageUrl: {
-        type: Sequelize.STRING
+      imageId: {
+        type: Sequelize.STRING,
+        allowNull: true
       },
       vendorId: {
         type: Sequelize.UUID,

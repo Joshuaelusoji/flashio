@@ -35,8 +35,9 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      imageUrl: {
-        type: Sequelize.STRING,
+      imageId: {
+      type: Sequelize.STRING,
+      allowNull: true
       },
       rating: {
         type: Sequelize.DECIMAL(2, 2),

@@ -7,7 +7,7 @@ module.exports = {
       id:        { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV4, primaryKey: true },
       name:      { type: Sequelize.STRING, allowNull: false },
       price:     { type: Sequelize.INTEGER, allowNull: false },
-      image:     { type: Sequelize.STRING, allowNull: false },
+      imageId: {type: Sequelize.STRING,allowNull: true},
       createdAt: { type: Sequelize.DATE, allowNull: false },
       updatedAt: { type: Sequelize.DATE, allowNull: false },
     });

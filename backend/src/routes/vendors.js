@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     if (includeProducts === 'true') {
       include.push({
         model: Product,
-        attributes: ['id', 'name', 'description', 'price', 'imageUrl', 'stock', 'isAvailable'],
+        attributes: ['id', 'name', 'description', 'price', 'imageId', 'stock', 'isAvailable'],
       });
     }
 
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
         { model: Category, attributes: ['id', 'name', 'slug', 'icon', 'color', 'textColor'] },
         {
           model: Product,
-          attributes: ['id', 'name', 'description', 'price', 'imageUrl', 'stock', 'isAvailable'],
+          attributes: ['id', 'name', 'description', 'price', 'imageId', 'stock', 'isAvailable'],
         },
       ],
     });

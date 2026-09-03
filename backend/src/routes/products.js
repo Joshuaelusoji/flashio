@@ -26,14 +26,14 @@ router.post(
   authMiddleware,
   roleMiddleware("VENDOR"),
   async (req, res) => {
-    const { name, description, price, imageUrl, category } = req.body;
+    const { name, description, price, imageId, category } = req.body;
 
     try {
       const product = await Product.create({
         name,
         description,
         price,
-        imageUrl,
+        imageId,
         category,
 
         // ⚠️ IMPORTANT: using USER ID as vendor reference

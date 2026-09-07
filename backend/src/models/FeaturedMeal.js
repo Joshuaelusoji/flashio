@@ -8,7 +8,7 @@ const FeaturedMeal = sequelize.define(
     name:     { type: DataTypes.STRING, allowNull: false },
     price:    { type: DataTypes.INTEGER, allowNull: false },
     location: { type: DataTypes.STRING, allowNull: false },
-    image:    { type: DataTypes.STRING, allowNull: false },
+    imageId:    { type: DataTypes.STRING, allowNull: false },
   },
   { timestamps: true }
 );
